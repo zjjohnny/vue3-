@@ -18,11 +18,11 @@ export default [
     children: [
       {
         title: "工作台数据",
-        path: "/workbench",
-
+        name:'home',
+        path: "/home",
       }
     ],
-    path: "/home",
+    path: "/main", //
     flag: 1,
   },
   {
@@ -31,7 +31,8 @@ export default [
     children: [
       {
         title: "会员管理",
-        path: "/client",
+        name:'',
+        path: "",
       },
       {
         title: "会员等级",
@@ -62,14 +63,14 @@ export default [
     title: "交易",
     icon: "iconfont icon-cangkutiaobo-xian",
     children: [
-      {
-        title: "订单列表",
-        path: "/main/quotation",
-      },
-      {
-        title: "订单清关",
-        path: "/main/contract",
-      },
+      // {
+      //   title: "订单列表",
+      //   path: "/main/quotation",
+      // },
+      // {
+      //   title: "订单清关",
+      //   path: "/main/contract",
+      // },
 
     ],
     path: "",
@@ -93,7 +94,7 @@ export default [
     children: [
       {
         title: "满减",
-        path: "",
+        path: "/test",
       },
       {
         title: "优惠券",
@@ -127,7 +128,7 @@ export default [
     children: [
       {
         title: "权限角色",
-        path: "/role",
+        path: "/data",
       },],
     path: "",
     flag: 5,
