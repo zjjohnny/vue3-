@@ -6,7 +6,7 @@
     <div class="rigth-title">
       <el-button type="primary" link>修改密码</el-button>
       <span>{{ username }}</span>
-      <div>
+      <div @click="exit" class="exit">
         <span>退出登录</span
         ><el-icon color="#FFFFFF" class="no-inherit icons"
           ><SwitchButton
@@ -19,7 +19,15 @@
 <script setup>
 import { SwitchButton } from "@element-plus/icons-vue";
 import { ref } from "vue";
+import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
 const username = ref("dd");
+const router = useRouter();
+
+const exit = () => {
+  router.push("/");
+  ElMessage("退出成功");
+};
 </script>
 
 <style lang="scss" scoped>
@@ -47,6 +55,8 @@ const username = ref("dd");
     border-radius: 3px;
     // font-weight: 700;
     background-color: #ffffff75 !important;
+    display: flex;
+    justify-content: center;
     > span {
       line-height: 40px;
       text-align: center;
@@ -70,7 +80,7 @@ const username = ref("dd");
     font-size: 16px;
     display: flex;
     align-items: center;
-    >.icons {
+    > .icons {
       font-size: 22px;
       padding-left: 5px;
     }
@@ -84,5 +94,9 @@ const username = ref("dd");
     color: #ffffff;
     font-size: 16px;
   }
+}
+
+.exit {
+  cursor: pointer;
 }
 </style>
