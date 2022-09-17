@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <Header />
-    <div>
-      <Navbar class="nav"></Navbar>
-    </div>
+  <div class="contenbox">
+    <Headers></Headers>
+    <Navbars class="nav"></Navbars>
     <div class="isContent">
       <router-view v-slot="{ Component }">
         <transition name="move" mode="out-in">
@@ -12,29 +10,39 @@
           </keep-alive>
         </transition>
       </router-view>
+      <!-- <router-view></router-view> -->
     </div>
   </div>
 </template>
 
 <script>
-import Header from "@/components/header.vue";
-import Navbar from "@/components/navbar.vue";
-export default {
+import Headers from "@/components/header.vue";
+import Navbars from "@/components/navbar.vue";
+import { defineComponent } from "vue";
+export default defineComponent({
+  name: "main",
   components: {
-    Header,
-    Navbar,
+    Headers,
+    Navbars,
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
+.contenbox {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
 .nav {
   position: absolute;
-  top: 83px;
-  left: 10px;
+  top: 74px;
+  // left: 10px;
   /* 宽度设置 */
-  width: 230px;
-  height: calc(100vh - 83px);
+  width: 229px;
+  // height: calc(100vh - 83px);
+  height: calc(100vh - 74px);
+  border-right: 1px solid red;
   // background-color:rgba(25, 158, 216, 1);
   overflow-y: auto;
 }
@@ -58,13 +66,16 @@ export default {
 }
 
 .isContent {
+  // display: none;
+  min-width: 600px;
   position: absolute;
-  top: 83px;
-  left: 240px;
+  top: 74px;
+  left: 230px;
   overflow-y: auto;
-  width: calc(100vw - 300px);
-  height: calc(100vh - 125px);
-  padding: 20px;
+  width: calc(100vw - 250px);
+  height: calc(100vh - 94px);
+  padding-top: 20px;
+  padding-left: 20px;
   background-color: rgb(243, 248, 255);
 }
 </style>
