@@ -10,7 +10,6 @@
           </keep-alive>
         </transition>
       </router-view>
-      <!-- <router-view></router-view> -->
     </div>
   </div>
 </template>
@@ -76,6 +75,7 @@ export default defineComponent({
   height: calc(100vh - 94px);
   padding-top: 20px;
   padding-left: 20px;
+  // padding: 20px;//加上后向春宇的页面会有横向滚动条
   background-color: rgb(243, 248, 255);
 }
 </style>

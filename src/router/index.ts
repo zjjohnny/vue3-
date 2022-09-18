@@ -15,14 +15,22 @@ const routes: Array<RouteRecordRaw> = [
         path: '/data',
         name: 'data',
         component: () => import(/* webpackChunkName: "data" */ '../views/pages/data.vue')
-      }
+      }, {
+        path: "/client",
+        name: 'client',
+        component: () => import('../views/CRain/Client.vue')
+      },{
+        path: "/adduser",
+        name: 'adduser',
+        component: () => import('../views/CRain/AddUser.vue')
+      },{
+        path: "/updateuser",
+        name: 'updateuser',
+        component: () => import('../views/CRain/updateUser.vue')
+      },
     ],
     redirect: '/home'
   },
-  {
-    path: "/client",
-    component: () => import('../views/CRain/Client.vue')
-  }
   // {
   //   path: '/about',
   //   name: 'about',

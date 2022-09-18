@@ -31,8 +31,8 @@ export default [
     children: [
       {
         title: "会员管理",
-        name:'',
-        path: "",
+        name:'client',
+        path: "/client",
       },
       {
         title: "会员等级",
