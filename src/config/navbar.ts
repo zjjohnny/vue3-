@@ -63,14 +63,14 @@ export default [
     title: "交易",
     icon: "iconfont icon-cangkutiaobo-xian",
     children: [
-      // {
-      //   title: "订单列表",
-      //   path: "/main/quotation",
-      // },
-      // {
-      //   title: "订单清关",
-      //   path: "/main/contract",
-      // },
+      {
+        title: "订单列表",
+        path: "/main/quotation",
+      },
+      {
+        title: "订单清关",
+        path: "/main/contract",
+      },
 
     ],
     path: "",
