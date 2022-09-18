@@ -42,11 +42,15 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
+import { reactive, ref, onBeforeMount } from "vue";
 import type { FormInstance } from "element-plus";
-import { ElMessage } from 'element-plus'
+import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
-
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+const router = useRouter(); //获取路由对象
+const route = useRoute();
+const store = useStore();
 const ruleFormRef = ref<FormInstance>();
 const validatePass = (rule: any, value: any, callback: any) => {
   if (value === "") {
@@ -67,13 +71,12 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
   }
 };
 
-const router = useRouter();
+// const router = useRouter();
 
 const ruleForm = reactive({
-  pass: "123",
-  checkPass: "hh",
+  pass: "",
+  checkPass: "",
 });
-
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: "blur" }],
   checkPass: [{ validator: validatePass2, trigger: "blur" }],
@@ -84,8 +87,8 @@ const submitForm = (formEl: FormInstance | undefined) => {
   formEl.validate((valid) => {
     if (valid) {
       // 登录成功去主页面
-      router.push('/main');
-      ElMessage("登录成功")
+      router.push("/main");
+      ElMessage("登录成功");
     } else {
       console.log("error submit!");
       return false;
@@ -97,6 +100,12 @@ const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
 };
+
+onBeforeMount(() => {
+  console.log("%c ======>>>>>>>>", "color:orange;", store.state.userlist);
+  // 保存本地
+  // localStorage.setItem("userlistacess", store.state.userlist);
+});
 </script>
 
 <style lang="scss" scoped>
@@ -121,9 +130,11 @@ const resetForm = (formEl: FormInstance | undefined) => {
     border-radius: 5px;
 
     > h1 {
+      display: flex;
+      justify-content: center;
       font-size: 28px;
       color: #0066cc;
-      margin: 50px 0;
+      margin: 50px auto;
     }
 
     > div {
