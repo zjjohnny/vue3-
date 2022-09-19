@@ -139,10 +139,10 @@ export default [
     children: [
       {
         title: "订单设置",
-        path: "",
+        path: "/orderSetting",
       }, {
         title: "国籍管理",
-        path: "",
+        path: "/countryManage",
       }],
     path: "",
     flag: 5,
