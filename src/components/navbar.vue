@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-menu default-active="1" class="el-menu-vertical-demo" :router="true" >
+    <el-menu default-active="1" class="el-menu-vertical-demo" :router="true">
       <!-- 有子路由 -->
       <div v-for="item in isNavData" :key="item.id">
         <!-- 没有子路由 -->
@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup >
 import {
   Document,
   Menu as IconMenu,
@@ -41,16 +41,31 @@ import {
   Setting,
 } from "@element-plus/icons-vue";
 import navData from "@/config/navbar";
-import { computed } from "vue";
-let isNavData = computed(() => {
+import { computed, onMounted } from "vue";
+onMounted(() => {
+  // console.log(navData);
+});
+
+const handleOpen = (key, keyPath) => {
+  // console.log(key, keyPath);
+};
+const handleClose = (key, keyPath) => {
+  // console.log(key, keyPath);
+};
+const changeContent = (path) => {
+  console.log(path); //这里拿到的是页面中绑定的Index的值=》index绑定的是数据中的 menuUrl:"/role"
+};
+
+const isNavData = computed(() => {
   // 自动生成id
   for (let i = 0; i < navData.length; i++) {
     const el = navData[i];
     el.id = i + 1;
+    el.id = String(el.id);
     if (el.children.length) {
       for (let j = 0; j < el.children.length; j++) {
         const element = el.children[j];
-        element.id = el.id + "" + (j + 1);
+        element.id = el.id + "-" + (j + 1);
       }
     }
   }
@@ -63,6 +78,7 @@ let isNavData = computed(() => {
   margin: 0;
   padding: 0;
 }
-
-
+.el-menu {
+  border-right: none !important;
+}
 </style>
