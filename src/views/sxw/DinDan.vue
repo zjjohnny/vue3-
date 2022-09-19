@@ -16,6 +16,7 @@
 
           <div class="sousuoanniu"><el-button type="primary">搜索</el-button></div>
         </div>
+<
         <div class="Biaogea">
             <el-tabs
                v-model="activeName"
@@ -163,6 +164,11 @@
       console.log(tab, event)
    };
     const tableData1 = [
+
+       
+
+ 
+
   {
     date: '2016-05-03',
     name: 'Tom',
@@ -183,19 +189,17 @@
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
+
 ];
 
     
     
 
+   
+   
     </script>
     <style>
-        .demo-tabs > .el-tabs__content {
-           padding: 32px;
-           color: #6b778c;
-           font-size: 32px;
-           font-weight: 600;
-      }
+
         template{
            margin: 0;
            padding: 0;
@@ -302,6 +306,27 @@
             margin-left: 1200px;
             margin-top: 120px;
         }
-  
-      
+
+        .Ddbaoti{
+            float: left;
+            position: absolute;
+            margin-left: -40px;
+        }
+        .Ddbaoti li{
+            display: inline-block;
+            width: 140px;
+            height: 44px;
+            border: 1px solid rgba(180, 177, 177, 0.555);
+            text-align: center;
+            line-height : 44px; 
+            font-size: 14px;
+            cursor: pointer;
+        }
+       .Biaogea{
+        position: relative;
+        margin-top: 64px;
+        width: 1200px;
+
+       }
+
     </style>

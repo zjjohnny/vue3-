@@ -70,7 +70,7 @@ export default [
 
     ],
     path: "",
-    flag: 3,
+    flag: 4,
   },
   // {
   //   title: "售后管理",
