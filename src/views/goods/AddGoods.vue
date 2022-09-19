@@ -3,7 +3,7 @@
         <h3>添加商品</h3>
         <div class="select-goods">
             <div class="select-input">
-                商品编码：<el-input v-model="goodsData.goods_num" placeholder="请输入商品标题"/>
+                商品编码：<el-input v-model="goodsData.goodsNum" placeholder="请输入商品标题"/>
             </div>
             <div class="select-input">
                 商品标题：<el-input v-model="goodsData.goodsTitle" />
@@ -26,28 +26,32 @@
                 </el-select>
                 <!-- 商品类别：<el-input v-model="selectData.goods_num" placeholder="请输入商品编码" /> -->
             </div>
-            <el-button type="primary">确认添加</el-button>
+            <el-button type="primary" @click="AddGood">确认添加</el-button>
         </div>
        
     </div>
   </template>
   
-  <script lang="ts">
+  <script>
   import { defineComponent, onBeforeMount,ref } from 'vue';
   import { useRoute } from 'vue-router';
+  import {useStore} from 'vuex';
   import axios from 'axios';
   export default defineComponent({  
     name: 'AddGoods',
     setup(){
+        const store = useStore()
         const route = useRoute();
         // const goodInfo = ref({});//存储当前拿到的商品详细信息
-        const goodsData = {
-            goods_num:'',
+        const goodsData = ref({
+            goodsId:0,
+            goodsNum:'',
             goodsTitle:'',
             goodsCount:'',
             goodsPrice:'',
             goodsType:'',
-        }
+            goodsSales: 0
+        })
         //商品类别
         const typeOptions = [
             {
@@ -63,6 +67,41 @@
                 label: '家居',
             }
         ];
+        //添加商品
+        const AddGood = ()=>{
+            if(goodsData.value.goodsNum == ''){
+                alert('请输入商品编码');
+                return
+            }
+            if(goodsData.value.goodsTitle == ''){
+                alert('请输入商品标题')
+                return
+            }
+            if(goodsData.value.goodsCount == ''){
+                alert('请输入商品库存')
+                return
+            }
+            if(goodsData.value.goodsPrice == ''){
+                alert('请输入商品价格')
+                return
+            }
+            if(goodsData.value.goodsType == ''){
+                alert('请选择商品类型')
+                return
+            }
+            if(goodsData.value.goodsNum != '' && goodsData.value.goodsTitle != '' && goodsData.value.goodsCount != '' 
+            && goodsData.value.goodsPrice != '' && goodsData.value.goodsType != ''){
+                let newData = JSON.parse(localStorage.getItem('goodslist'))
+                goodsData.value.goodsId = newData.length+1;
+                console.log("add",goodsData.value);
+                // store.dispatch('addGoods',goodsData.value);
+                newData.push(goodsData.value);
+                console.log(newData);
+                localStorage.setItem('goodslist',JSON.stringify(newData));
+                alert("添加商品成功")
+            }
+            
+        }
         onBeforeMount(()=>{
             // console.log(route.query.id);
             // axios.get("http://localhost:8888/getGoodInfo.do?id="+route.query.id)
@@ -74,6 +113,7 @@
         })
         return{
             typeOptions,goodsData,
+            AddGood
             
         }
     }

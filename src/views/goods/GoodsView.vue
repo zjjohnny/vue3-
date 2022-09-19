@@ -58,11 +58,11 @@
                     </template>
                 </el-table-column>
                 
-                <el-table-column prop="goodsTitle" label="商品标题" width="120" />
+                <el-table-column prop="goodsTitle" label="商品标题" width="150" />
                 <el-table-column prop="goodsCount" label="商品库存" width="120" />
                 <el-table-column prop="goodsPrice" label="销售价格" width="120" />
                 <el-table-column prop="goodsType" label="分类" width="120" />
-                <el-table-column prop="goodsSales" label="销量" width="60"/>
+                <el-table-column prop="goodsSales" label="销量" width="80"/>
                 <el-table-column label="操作" >
                     <template #default="scope">
                         <el-button link type="primary"  @click="changeGoods(scope.row)">编辑</el-button>
@@ -74,7 +74,7 @@
     </div>
   </template>
   
-  <script lang="ts">
+  <script>
   import { defineComponent,  onBeforeMount } from 'vue';
   import axios from 'axios';
   import {useStore} from 'vuex';
@@ -119,20 +119,17 @@ import { ElTable } from 'element-plus'
                 label: '单价',
             }
         ];
-        // const multipleTableRef = ref<InstanceType<typeof ElTable>>()
-        // const multipleSelection = ref<goodsList[]>([])
-        // const handleSelectionChange = (val: goodsList[]) => {
-        //     multipleSelection.value = val
-        // }
+        
         //vuex拿到全部商品数据
         const goodsList = computed(()=>{
-            return store.getters.allGoodsList
+            // return store.getters.allGoodsList
+            return JSON.parse(localStorage.getItem('goodslist'))
         })
         // 修改商品信息
-        const changeGoods=(row:any)=>{
+        const changeGoods=(row)=>{
             // console.log(row);
             router.push({path:'/ChangeGoods',query:{id:row.goodsId}});//路由带参跳转
-            console.log(store.state.goodsList);
+            // console.log(store.state.goodsList);
         }
         // 添加商品
         const addGoods=()=>{
@@ -141,9 +138,9 @@ import { ElTable } from 'element-plus'
         onBeforeMount(()=>{
             axios.get('http://localhost:8888/getGoodsList.do')
             .then((res)=>{
-                console.log(res.data);
+                // console.log(res.data);
                 store.dispatch('setGoodsList',res.data);//拿到所有商品信息，存入vuex
-                localStorage.setItem('goodslist',JSON.stringify(res.data))
+                
             })
         })
         return{

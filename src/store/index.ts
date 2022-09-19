@@ -49,14 +49,27 @@ export default createStore({
 
   },
   mutations: {
+    //获取全部商品数据
+    setGoodsList(state,data){
+      state.goodsList = data;
+      let localData = localStorage.getItem('goodslist')
+      if(localData == null){
+        localStorage.setItem('goodslist',JSON.stringify(data))
+      }
+    },
     //修改商品信息
     changeGoods(state,data){
-      let dat = state.goodsList
       for(let i=0;i<state.goodsList.length;i++){
         if(state.goodsList[i].goodsId == data.goodsId){
           state.goodsList.splice(i,1,data)
         }
-      }
+      };
+      localStorage.setItem('goodslist',JSON.stringify(state.goodsList))
+    },
+    //增加商品
+    addGoods(state,data){
+      console.log(data);
+      
     },
     setUserlists(state, payload) {
       state.aceesuser = payload
@@ -93,13 +106,17 @@ export default createStore({
   actions: {
     //拿到所有商品信息
     setGoodsList({commit},data){
-      // console.log("ac",data);
-      commit('setGoodsList',data)
+      commit('setGoodsList',data);
     },
+    //修改商品信息
     changeGoods({commit},data){
-      console.log('ac',data);
       commit('changeGoods',data)
     },
+    //添加商品
+    addGoods({commit},data){
+      commit('addGoods',data)
+    },
+
     setUserlist(context, payload) {
       context.commit('setUserlists', payload)
     },

@@ -32,7 +32,7 @@
     </div>
   </template>
   
-  <script lang="ts">
+  <script>
   import { defineComponent, onBeforeMount,ref } from 'vue';
   import { useRoute } from 'vue-router';
   import {useStore} from 'vuex'
@@ -66,17 +66,28 @@
         const changed=()=>{
             console.log("修改",goodInfo.value);
             // store.commit("changeGoods",goodInfo.value)
-            store.dispatch('changeGoods',goodInfo.value);
-            
-            
+            // store.dispatch('changeGoods',goodInfo.value);
+            let localData = JSON.parse(localStorage.getItem('goodslist'))
+            for(let i=0;i<localData.length;i++){
+                if(localData[i].goodsId == goodInfo.value.goodsId){
+                    localData.splice(i,1,goodInfo.value);
+                    localStorage.setItem('goodslist',JSON.stringify(localData))
+                    alert("修改成功")
+                }
+            };
         }
         onBeforeMount(()=>{
-            // console.log(route.query.id);
-            axios.get("http://localhost:8888/getGoodInfo.do?id="+route.query.id)
-            .then((res)=>{
-                // console.log(res);
-                goodInfo.value = res.data[0]
+            let localData = JSON.parse(localStorage.getItem('goodslist'))
+            let filterData = localData.filter((item)=>{
+                return item.goodsId == parseInt(route.query.id)
             })
+            goodInfo.value = filterData[0]
+            console.log(goodInfo.value);
+            // axios.get("http://localhost:8888/getGoodInfo.do?id="+route.query.id)
+            // .then((res)=>{
+            //     console.log(res.data[0]);
+            //     // goodInfo.value = res.data[0]
+            // })
             
         })
         return{
