@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
+  
   {
     path: '/main',
     name: 'main',
@@ -35,8 +36,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/acess",
         name: '权限',
         component: () => import('../views/pages/acess.vue')
-      },
-      {
+      },{
         path:'/GoodsView',
         name: 'GoodsView',
         component: () => import('../views/goods/GoodsView.vue'),
@@ -58,33 +58,20 @@ const routes: Array<RouteRecordRaw> = [
       }
     ],
     redirect: '/home'
-  },
-  {
+  },{
     path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
-  },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
-  {
+  },{
     path: '/orderSetting',
     name: 'orderSetting',
     component: ()=>import('../views/system/orderSetting.vue')
-  },
-  {
+  },{
     path: '/countryManage',
     name: 'countryManage',
     component: ()=>import('../views/system/countryManage.vue')
-  },
-
+  }
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
