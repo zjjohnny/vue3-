@@ -20,8 +20,8 @@
           </template>
           <el-menu-item-group>
             <el-menu-item
-              :route="el.path"
               v-for="(el, index) in item.children"
+              :route="el.path"
               :key="item.id + (index + 1)"
               :index="el.id"
               >{{ el.title }}</el-menu-item
