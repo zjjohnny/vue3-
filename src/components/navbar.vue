@@ -44,6 +44,11 @@ import navData from "@/config/navbar";
 import { computed, onMounted } from "vue";
 onMounted(() => {
   // console.log(navData);
+  // 获取本地存储的addAcess
+  const addAcess = localStorage.getItem("addAcess");
+  // 获取本地的user
+  const user = localStorage.getItem("user");
+
 });
 
 const handleOpen = (key, keyPath) => {

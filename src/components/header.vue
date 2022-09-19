@@ -21,8 +21,13 @@ import { SwitchButton } from "@element-plus/icons-vue";
 import { ref } from "vue";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
-const username = ref("dd");
+const username = ref("");
 const router = useRouter();
+// 获取当前登录的用户名
+// 从本地获取username并给username赋值
+username.value = localStorage.getItem("username");
+
+
 
 const exit = () => {
   router.push("/");

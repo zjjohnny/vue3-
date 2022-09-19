@@ -46,15 +46,20 @@ export default createStore({
   mutations: {
     setUserlists(state, payload) {
       state.aceesuser = payload
+      sessionStorage.setItem('setUserlists', JSON.stringify(payload))
     },
     // 删除用户
     deleteUser(state, payload,) {
       state.userlist.splice(payload, 1)
+      // payload删除对应的id
+      sessionStorage.setItem('deleteUser', JSON.stringify(payload))
     },
     // 增加权限
     addAcess(state, payload: any) {
       console.log('%c ======>>>>>>>>', 'color:orange;', payload.acess,)
-      state.userlist[payload.id].acess = payload.acess
+      state.userlist[payload.id].acess = payload.acess;
+      // 当前设置的权限储存
+      sessionStorage.setItem('addAcess', JSON.stringify(payload))
     },
     // 新增用户
     addUser(state, payload) {
@@ -72,7 +77,7 @@ export default createStore({
           "日",         
       }),
       // 存本地
-      localStorage.setItem('userlist', JSON.stringify(state.userlist))
+      localStorage.setItem('addUser', JSON.stringify(payload))
 
     }
   },

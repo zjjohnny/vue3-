@@ -1,6 +1,6 @@
 <template>
   <div class="contenbox">
-    <Headers></Headers>
+    <Headers ></Headers>
     <Navbars class="nav"></Navbars>
     <div class="isContent">
       <router-view v-slot="{ Component }">
