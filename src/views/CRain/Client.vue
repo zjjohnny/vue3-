@@ -50,7 +50,7 @@
               placeholder="全部"
             >
               <el-option
-                v-for="item in gradeSelect"
+                v-for="item in groupSelect"
                 :key="item.value"
                 :label="item.label"
                 :value="item.value"
@@ -76,12 +76,18 @@
     <div class="user-data">
       <el-table :data="memberUserList" border style="width: 100%">
         <el-table-column
-          prop="userHeaderImg"
           label="头像"
           width="100"
           header-align="center"
           align="center"
-        />
+        >
+          <template #default="scope">
+            <img
+              :src="'http://localhost:8888/' + scope.row.userHeaderImg"
+              style="width: 40px; height: 40px"
+            />
+          </template>
+        </el-table-column>
         <el-table-column
           prop="userName"
           label="用户名"
@@ -222,7 +228,7 @@ export default {
     const router = useRouter();
     //获取store对象
     const store = useStore();
-    //下拉框数据
+    //用户等级下拉框数据
     const gradeSelect = [
       {
         value: "全部",
@@ -239,6 +245,25 @@ export default {
       {
         value: "三级",
         label: "三级",
+      },
+    ];
+    //用户组别下拉框
+    const groupSelect = [
+      {
+        value: "全部",
+        label: "全部",
+      },
+      {
+        value: "一组",
+        label: "一组",
+      },
+      {
+        value: "二组",
+        label: "二组",
+      },
+      {
+        value: "三组",
+        label: "三组",
       },
     ];
     //搜索栏输入数据
@@ -261,7 +286,6 @@ export default {
     //方法
     /* 搜索用户 */
     const searchUser = function () {
-      console.log(searchList);
       getAllUser(searchList);
     };
     /* 重置按钮 */
@@ -347,7 +371,7 @@ export default {
 
     onBeforeMount(function () {
       //初始化页面
-      // getAllUser(searchList);//第一次执行拿到数据后注释掉，否则新增和修改不成功。但是搜索过后数据重置为原来的
+      // getAllUser(searchList); //第一次执行拿到数据后注释掉，否则新增和修改不成功。但是搜索过后数据重置为原来的
     });
     //从store中获取用户数据
     const memberUserList = computed(() => store.state.memberUserList);
@@ -359,6 +383,7 @@ export default {
       centerDialogVisible,
       dialogTableVisible,
       gridData,
+      groupSelect,
       searchUser,
       restSearch,
       AddUser,
@@ -385,6 +410,7 @@ export default {
   padding: 20px;
 }
 .header-text {
+  text-align: start;
   padding-bottom: 10px;
   color: #333333;
   border-bottom: 1px solid #efefef;
@@ -396,12 +422,15 @@ export default {
   color: #666666;
   font-size: 14px;
 }
+.opera-box table tr {
+  height: 60px;
+}
 .opera-box table td {
   width: 330px;
 }
 .opera-box table input {
   border: 1px solid #d9d9d9;
-  padding: 5px;
+  padding: 8px;
   border-radius: 3px;
   width: 200px;
 }
