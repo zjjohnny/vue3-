@@ -51,6 +51,10 @@ const routes: Array<RouteRecordRaw> = [
         path:'/AddGoods',
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
+      },{
+        path:'/dindan',
+        name: '订单',
+        component: () => import('../views/sxw/DinDan.vue')
       }
     ],
     redirect: '/home'

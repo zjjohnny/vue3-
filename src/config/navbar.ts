@@ -65,16 +65,12 @@ export default [
     children: [
       {
         title: "订单列表",
-        path: "/main/quotation",
-      },
-      {
-        title: "订单清关",
-        path: "/main/contract",
-      },
+        path: "/dindan",
+      }
 
     ],
     path: "",
-    flag: 3,
+    flag: 4,
   },
   // {
   //   title: "售后管理",
