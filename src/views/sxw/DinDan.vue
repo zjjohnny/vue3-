@@ -16,7 +16,7 @@
 
           <div class="sousuoanniu"><el-button type="primary">搜索</el-button></div>
         </div>
-<
+
         <div class="Biaogea">
             <el-tabs
                v-model="activeName"
@@ -42,7 +42,7 @@
         </el-tab-pane>
  
         <!-- 第二个 -->
-    <el-tab-pane label="总价/数量" name="second"><el-table :data="tableData" 
+    <el-tab-pane label="总价/数量" name="second"><el-table :data="tableData1" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
@@ -59,7 +59,7 @@
         </el-tab-pane>
 
         <!-- 第三个 -->
-    <el-tab-pane label="买家信息" name="third"><el-table :data="tableData" 
+    <el-tab-pane label="买家信息" name="third"><el-table :data="tableData1" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
@@ -76,7 +76,7 @@
         </el-tab-pane>
             
         <!-- 第四个 -->
-        <el-tab-pane label="下单时间" name="fourth"><el-table :data="tableData" 
+        <el-tab-pane label="下单时间" name="fourth"><el-table :data="tableData1" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
@@ -94,7 +94,7 @@
    
  
         <!-- 第五个 -->
-     <el-tab-pane label="订单状态" name="firee"><el-table :data="tableData" 
+     <el-tab-pane label="订单状态" name="firee"><el-table :data="tableData1" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
@@ -112,7 +112,7 @@
      
 
         <!-- 第六个 -->
-     <el-tab-pane label="贸易类型" name="sixe"><el-table :data="tableData" 
+     <el-tab-pane label="贸易类型" name="sixe"><el-table :data="tableData1" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
@@ -130,7 +130,7 @@
     
 
         <!-- 第七个 -->
-     <el-tab-pane label="实付金额" name="svser"><el-table :data="tableData" 
+     <el-tab-pane label="实付金额" name="svser"><el-table :data="tableData1" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
