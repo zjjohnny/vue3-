@@ -19,6 +19,22 @@ const routes: Array<RouteRecordRaw> = [
         path: "/acess",
         name: '权限',
         component: () => import('../views/pages/acess.vue')
+      },
+      {
+        path:'/GoodsView',
+        name: 'GoodsView',
+        component: () => import('../views/goods/GoodsView.vue'),
+        children:[
+          
+        ]
+      },{
+        path:'/ChangeGoods',
+        name: 'ChangeGoods',
+        component: () => import('../views/goods/ChangeGoods.vue')
+      },{
+        path:'/AddGoods',
+        name: 'AddGoods',
+        component: () => import('../views/goods/AddGoods.vue')
       }
     ],
     redirect: '/home'

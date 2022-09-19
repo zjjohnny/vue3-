@@ -48,7 +48,7 @@ export default [
     children: [
       {
         title: "商品管理",
-        path: "/MyClue",
+        path: "/GoodsView",
       },
       {
         title: "仓库管理",
