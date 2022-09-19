@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <!-- 标题栏 -->
-    <div class="header-text">用户列表(共{{ userList.length }}条)</div>
+    <div class="header-text">用户列表(共{{ memberUserList.length }}条)</div>
     <!-- 操作栏 -->
     <div class="opera-box">
       <table>
@@ -69,12 +69,12 @@
       <div class="add-box">
         <button @click="AddUser">添加用户</button>
       </div>
-      <div class="user-count">共{{ userList.length }}条数据</div>
+      <div class="user-count">共{{ memberUserList.length }}条数据</div>
     </div>
     <p style="clear: both"></p>
     <!-- 用户表格数据 -->
     <div class="user-data">
-      <el-table :data="userList" border style="width: 100%">
+      <el-table :data="memberUserList" border style="width: 100%">
         <el-table-column
           prop="userHeaderImg"
           label="头像"
@@ -93,14 +93,14 @@
         <el-table-column
           prop="userReCode"
           label="我的推荐码"
-          width="150"
+          width="100"
           header-align="center"
           align="center"
         />
         <el-table-column
           prop="grade"
           label="等级"
-          width="150"
+          width="100"
           header-align="center"
           align="center"
         />
@@ -109,11 +109,12 @@
           label="手机号"
           header-align="center"
           align="center"
+          width="150"
         />
         <el-table-column
           prop="superReCode"
           label="上级推荐码"
-          width="150"
+          width="100"
           header-align="center"
           align="center"
         />
@@ -128,7 +129,8 @@
           label="最后登录时间"
           header-align="center"
           align="center"
-        >
+        />
+        <el-table-column label="操作" header-align="center" align="center">
           <template #default="scope">
             <el-button
               link
@@ -137,8 +139,68 @@
               @click="updateUser(scope.row)"
               >编辑</el-button
             >
-            <el-button link type="primary" size="small">禁用</el-button>
-            <el-button link type="primary" size="small">查看返利记录</el-button>
+            <el-button
+              link
+              type="primary"
+              size="small"
+              @click="open(scope.row)"
+            >
+              {{ scope.row.userStatus ? "禁用" : "启用" }}
+            </el-button>
+            <!-- 启用||禁用对话框 -->
+
+            <el-button
+              link
+              type="primary"
+              size="small"
+              @click="getUserRebate(scope.row)"
+              >查看返利记录</el-button
+            >
+            <!-- 返利记录弹出框 -->
+            <el-dialog v-model="dialogTableVisible" title="返利记录">
+              <el-table :data="gridData">
+                <el-table-column
+                  property="rePersonCode"
+                  label="推荐人码"
+                  header-align="center"
+                  align="center"
+                  width="100"
+                />
+                <el-table-column
+                  property="referrerCode"
+                  label="被推荐人码"
+                  header-align="center"
+                  align="center"
+                  width="100"
+                />
+                <el-table-column
+                  property="orderNumber"
+                  label="订单号"
+                  header-align="center"
+                  align="center"
+                />
+                <el-table-column
+                  property="orderAmount"
+                  label="订单金额"
+                  header-align="center"
+                  align="center"
+                  width="100"
+                />
+                <el-table-column
+                  property="commissionAmount"
+                  label="佣金金额"
+                  header-align="center"
+                  align="center"
+                  width="100"
+                />
+                <el-table-column
+                  property="orderTime"
+                  label="下单时间"
+                  header-align="center"
+                  align="center"
+                />
+              </el-table>
+            </el-dialog>
           </template>
         </el-table-column>
       </el-table>
@@ -147,9 +209,10 @@
 </template>
 
 <script>
-import { onBeforeMount, reactive, computed } from "vue";
+import { onBeforeMount, reactive, computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { ElMessage, ElMessageBox } from "element-plus";
 import axios from "../../plugins/axiosInstance";
 // import axios from "axios";
 export default {
@@ -189,6 +252,11 @@ export default {
     });
     //表格数据
     const userTableData = reactive([]);
+    //是否显示禁用or启用对话框
+    const centerDialogVisible = ref(false);
+    //是否展示返利记录
+    const dialogTableVisible = ref(false);
+    const gridData = reactive([]);
 
     //方法
     /* 搜索用户 */
@@ -211,8 +279,33 @@ export default {
     };
     /* 编辑按钮 */
     const updateUser = function (row) {
-      console.log(row.userId);
-      router.push({path:"/updateuser",quert:{userId: row.userId}});
+      router.push({ path: "/updateuser", query: { userId: row.userId } });
+    };
+    /* 修改用户状态：启用||禁用 */
+    const open = (row) => {
+      ElMessageBox.confirm(
+        `您确定${row.userStatus ? "禁用" : "启用"}该账户吗？`,
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          center: true,
+        }
+      )
+        .then(() => {
+          store.dispatch("updateMemberUserStatus", row.userId);
+        })
+        .catch(() => {});
+    };
+    /* 查看返利记录 */
+    const getUserRebate = function (row) {
+      gridData.length = 0;
+      axios.get("/getAllUser.do?userId=" + row.userId).then((res) => {
+        console.log(res.data.userList);
+        for (let i = 0; i < res.data.userList[0].rebateLog.length; i++) {
+          gridData.push(res.data.userList[0].rebateLog[i]);
+        }
+      });
+      dialogTableVisible.value = true;
     };
     /* 获取用户列表 */
     const getAllUser = function (searchList) {
@@ -248,32 +341,45 @@ export default {
           userTableData.push(user);
         }
         // console.log(userTableData);
-        store.dispatch("savaUserList", userTableData);
+        store.dispatch("savaMemberUserList", userTableData);
       });
     };
 
     onBeforeMount(function () {
       //初始化页面
-      getAllUser(searchList);
-      console.log("初始化页面");
+      // getAllUser(searchList);//第一次执行拿到数据后注释掉，否则新增和修改不成功。但是搜索过后数据重置为原来的
     });
     //从store中获取用户数据
-    const userList = computed(() => store.state.userList);
+    const memberUserList = computed(() => store.state.memberUserList);
 
     return {
       searchList, //搜索栏input框
       gradeSelect, //等级下拉框
-      userList,
+      memberUserList,
+      centerDialogVisible,
+      dialogTableVisible,
+      gridData,
       searchUser,
       restSearch,
       AddUser,
       updateUser,
+      open,
+      getUserRebate,
     };
   },
 };
 </script>
 
 <style scoped>
+/* 禁用||启用 */
+.dialog-footer button:first-child {
+  margin-right: 10px;
+}
+/* 返利记录 */
+.dialog-footer button:first-child {
+  margin-right: 10px;
+}
+/* 其他 */
 .content-container {
   background-color: white;
   padding: 20px;

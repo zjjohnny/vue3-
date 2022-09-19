@@ -25,9 +25,8 @@
             <td colspan="4" class="select-group">
               选择分组
               <el-radio-group
-                v-model="userGroup"
+                v-model="userInfo.group"
                 class="ml-4"
-                @change="getSelect"
               >
                 <el-radio label="一组" size="large">一组</el-radio>
                 <el-radio label="二组" size="large">二组</el-radio>
@@ -46,11 +45,11 @@
       </div>
       <div>
         <span>我的推荐码</span>&nbsp;&nbsp;&nbsp;
-        <span>DASD1</span>
+        <span>{{ userInfo.userReCode }}</span>
       </div>
       <div>
         <span>上级推荐码</span>&nbsp;&nbsp;&nbsp;
-        <span>SDF15D</span>
+        <span>{{ userInfo.superReCode }}</span>
       </div>
     </div>
     <p style="clear: both"></p>
@@ -64,6 +63,7 @@
 
 <script lang="ts">
 import { reactive, ref, onBeforeMount, defineComponent } from "vue";
+import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import axios from "../../plugins/axiosInstance";
 import { useRoute } from "vue-router";
@@ -71,21 +71,23 @@ import { useRoute } from "vue-router";
 export default defineComponent({
   name: "updateUser",
   setup() {
+    //获取路由对象
+    const router = useRouter();
     //获取store对象
     const store = useStore();
     //引入route对象
     const route = useRoute();
     //用户信息
     const userInfo = reactive({
-      //   userId: nanoid(),
+      userId:'',
       userHeaderImg: "user1.png",
       userName: "",
-      userReCode: "8FDS4",
+      userReCode: "",
       grade: "",
       userPwd: "",
       userPhone: "",
       group: "",
-      superReCode: "SDF1C",
+      superReCode: "",
       userStatus: true,
       LastLoginTime: "2019.01.01-10:00",
       registerTime: "2019.01.01-10:00",
@@ -93,19 +95,27 @@ export default defineComponent({
     //方法
     /* 提交按钮 */
     const updateUser = function () {
-      const userInfo1 = store.state.userList;
-      console.log(userInfo1);
+      store.dispatch('updateMemberUser',userInfo);
     };
     /* 获取用户数据 */
     const getUserInfo = function () {
-      console.log(route.query.userId);
-      //   axios.get("/getAllUser.do?id=" + route.query.userId);
+      axios.get("/getAllUser.do?userId=" + route.query.userId)
+        .then((res: any) => {
+          userInfo.userId = res.data.userList[0].userId;
+          userInfo.userName = res.data.userList[0].userName;
+          userInfo.userPhone = res.data.userList[0].userPhone;
+          userInfo.userPwd = res.data.userList[0].userPwd;
+          userInfo.grade = res.data.userList[0].grade;
+          userInfo.group = res.data.userList[0].group;
+          userInfo.userReCode = res.data.userList[0].userReCode;
+          userInfo.superReCode = res.data.userList[0].superReCode;
+        });
     };
     /* 返回 */
-    const backPre = function () {};
+    const backPre = function () {
+      router.push("/client");
+    };
     onBeforeMount(() => {
-      console.log(111);
-      console.log(route.query.userId);
       getUserInfo();
     });
     return {

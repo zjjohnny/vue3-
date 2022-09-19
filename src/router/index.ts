@@ -20,6 +20,10 @@ const routes: Array<RouteRecordRaw> = [
         name: 'client',
         component: () => import('../views/CRain/Client.vue')
       },{
+        path: "/highseas",
+        name: 'highseas',
+        component: () => import('../views/CRain/HighSeas.vue')
+      },{
         path: "/adduser",
         name: 'adduser',
         component: () => import('../views/CRain/AddUser.vue')
@@ -27,24 +31,20 @@ const routes: Array<RouteRecordRaw> = [
         path: "/updateuser",
         name: 'updateuser',
         component: () => import('../views/CRain/updateUser.vue')
-      },
+      },{
+        path: "/acess",
+        name: '权限',
+        component: () => import('../views/pages/acess.vue')
+      }
     ],
     redirect: '/home'
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
   {
     path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
   },
-  
+
 ]
 
 const router = createRouter({

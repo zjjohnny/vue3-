@@ -86,7 +86,7 @@ export default {
     };
     /* 提交按钮 */
     const addUser = function () {
-      store.dispatch("addUser", userInfo);
+      store.dispatch("addMemberUser", userInfo);
       ElMessage({
         message: "添加成功",
         type: "success",
