@@ -1,11 +1,32 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Main from '../views/main.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
+    path: '/main',
+    name: 'main',
+    // redirect: '/home',
+    component: () => import('../views/main.vue'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import(/* webpackChunkName: "home" */ '../views/home/home.vue')
+      }, {
+        path: '/data',
+        name: 'data',
+        component: () => import(/* webpackChunkName: "data" */ '../views/pages/data.vue')
+      }, {
+        path: "/acess",
+        name: '权限',
+        component: () => import('../views/pages/acess.vue')
+      }
+    ],
+    redirect: '/home'
+  },
+  {
     path: '/',
-    name: 'home',
-    component: Main
+    name: 'login',
+    component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
   },
   // {
   //   path: '/about',
@@ -25,6 +46,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'countryManage',
     component: ()=>import('../views/system/countryManage.vue')
   },
+
 ]
 
 const router = createRouter({
