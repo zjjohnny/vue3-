@@ -3,8 +3,8 @@
         <div>优惠劵列表<span>(共80条)</span></div>
         <el-divider />
         <div class="PutOne">
-          <span class="PutBta">活动名称</span><div class="oneputa"><el-input v-model="input" placeholder="请输入活动名称" /></div>
-        <div class="sjbox">
+          <span class="PutBta">活动名称</span><div class="oneputa"><el-input v-model="myname" placeholder="请输入活动名称" /></div>
+        <!-- <div class="sjbox">
             <span class="demonstration">开始时间</span>
             <div class="demo-date-picker">
                 <div class="block">
@@ -20,8 +20,8 @@
                     />
                 </div>
             </div>
-        </div>
-          <div class="sousuo"><el-button type="primary">搜索</el-button></div> 
+        </div> -->
+          <div class="sousuo"><el-button type="primary" @click="searchUser">搜索</el-button></div> 
         </div>
         <div class="tjsj"><span class="suju">共10条数据</span></div>
         <!-- 表格 -->
@@ -44,60 +44,48 @@
         </el-table>
     </div>
 </template>
-<script lang="ts" setup>
-     import { ref } from 'vue';
-     const input = ref('');
-    //时间选择
-     const size = ref<'' | 'large' | 'small'>('')
-     const value1 = ref('')
+<script>
+    import {onBeforeMount, reactive, computed, ref} from 'vue';
+    import {useStore} from 'vuex';
+    import {useRouter} from 'vue-router'
+    import { ElMessage} from "element-plus";
+    import axios from "../../plugins/axiosInstance";
+    export default {
+      name:"YouHuiJuan",
+        setup() {
+          const store = useStore();//调用useStore获取store
+          const router = useRouter();//获取路由对象
+          const myname=ref('');  
+          onBeforeMount(function () {
+            axios({
+              method: "get",
+              url: "getuser.do",
+            }).then((res) => {
+              console.log(res);
+              store.dispatch("settableData",res.data);
+            })
+          })
+          //搜索
+          const searchUser= () => {
+            console.log(myname.value);
+          }
+          //查看函数  
+          const handleClick = () => {
+          console.log('click')
+          };
 
-     const shortcuts = [
-  {
-    text: 'Last week',
-    value: () => {
-      const end = new Date()
-      const start = new Date()
-      start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-      return [start, end]
-    },
-  }
-]
-// 表格
-const handleClick = () => {
-  console.log('click')
-}
-
-    const tableData = [
-  {
-    name: '新用户优惠卷',
-    manjian: '满100减20',
-    state: '进行中',
-    citstartTimey: '2016-05-04',
-    endTime: '2016-05-06',
-    tag: 'Home',
-    issued:'100',
-    USED:'0'
-  },{
-    name: '新用户优惠卷',
-    manjian: '满100减20',
-    state: '进行中',
-    citstartTimey: '2016-05-04',
-    endTime: '2016-05-06',
-    tag: 'Home',
-    issued:'100',
-    USED:'0'
-  },{
-    name: '新用户优惠卷',
-    manjian: '满100减20',
-    state: '进行中',
-    citstartTimey: '2016-05-04',
-    endTime: '2016-05-06',
-    tag: 'Home',
-    issued:'100',
-    USED:'0'
-  },]
-   
-   
+          //从store中获取用户数据
+          const tableData=computed(()=>{
+             return store.state.tableData
+          });
+          return {
+            tableData,
+            handleClick,
+            myname, 
+            searchUser
+          }
+        }
+      };
     </script>
     <style scoped>
 

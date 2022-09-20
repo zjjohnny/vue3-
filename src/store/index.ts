@@ -38,8 +38,10 @@ export default createStore({
       }
     ],
     // 增加的权限用户
-    aceesuser: []
-  },
+    aceesuser: [],
+    // 优惠卷信息
+    tableData:JSON.parse(localStorage.getItem('tableData') || '[]'),  },
+
   getters: {
     //拿到所有商品信息
     allGoodsList(state){
@@ -50,8 +52,10 @@ export default createStore({
     },
     getuseracc(state) {
       return state.aceesuser
-    }
-
+    },
+    gettableData(state){
+      return state.tableData
+    },
   },
   mutations: {
     /* 存储用户列表 */
@@ -117,6 +121,10 @@ export default createStore({
           state.memberGradeList.splice(i, 1,value);
         }
       }
+    },
+    // 优惠卷信息
+    settableData(state,data){
+      state.tableData=data;
     }
   },
   actions: {
@@ -169,7 +177,12 @@ export default createStore({
     /* 修改会员等级列表信息 */
     updateMemberGradeList(context:any, value) { 
       context.commit('updateMemberGradeList', value);
+    },
+    //拿到所有满减信息
+    settableData({commit},data){
+      commit('settableData',data);
     }
-  },
+},
+
   modules: {}
 })
