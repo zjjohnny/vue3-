@@ -52,6 +52,10 @@ const routes: Array<RouteRecordRaw> = [
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
       },{
+        path:'/GoodsHouse',
+        name: '商品仓库',
+        component: () => import('../views/goods/GoodsHouse.vue')
+      },{
         path:'/dindan',
         name: '订单',
         component: () => import('../views/sxw/DinDan.vue')

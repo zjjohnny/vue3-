@@ -1,3 +1,4 @@
+import { da } from 'element-plus/es/locale';
 import { stat } from 'fs';
 import { createStore } from 'vuex';
 import { useStore } from "vuex";
@@ -5,10 +6,11 @@ const store = useStore();
 export default createStore({
   state: {
     //会员列表
-    memberUserList: JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    memberUserList:JSON.parse(localStorage.getItem('memberUserList') || '[]'),
     //会员等级列表
     memberGradeList:[],
-    goodsList:[{goodsId:''}],//所有商品数据列表{goodsId:''}
+    goodsList:JSON.parse(localStorage.getItem('goodslist') || '[]'),//所有商品数据列表{goodsId:''}
+    goodsHoList:JSON.parse(localStorage.getItem('goodsHoList') || '[]'),
     userlist: [
       {
         id: 0,
@@ -45,6 +47,9 @@ export default createStore({
     allGoodsList(state){
       return state.goodsList;
     },
+    allGoodsHolist(state){
+      return state.goodsHoList
+    },
     getUserlist(state) {
       return state.userlist
     },
@@ -60,12 +65,9 @@ export default createStore({
       localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
     },
     //获取全部商品数据
-    setGoodsList(state:any,data){
-      state.goodsList = data;
-      let localData = localStorage.getItem('goodslist')
-      if(localData == null){
-        localStorage.setItem('goodslist',JSON.stringify(data))
-      }
+    setGoodsList(state,data){
+      state.goodsList = data
+      localStorage.setItem('goodslist',JSON.stringify(data))
     },
     //修改商品信息
     changeGoods(state:any,data){
@@ -78,7 +80,58 @@ export default createStore({
     },
     //增加商品
     addGoods(state:any,data){
-      console.log(data);
+      data.goodsId = state.goodsList.length+1;
+      state.goodsList.push(data);
+      localStorage.setItem('goodslist', JSON.stringify(state.goodsList));
+    },
+    //下架商品
+    downGoods(state,gid){
+      for(let i=0;i<state.goodsList.length;i++){
+        if(state.goodsList[i].goodsId == gid){
+          state.goodsList[i].goodsShelves = '否'
+        }
+      }
+      localStorage.setItem('goodslist', JSON.stringify(state.goodsList));
+    },
+    //删除商品
+    deleteGoods(state,gid){
+      for(let i=0;i<state.goodsList.length;i++){
+        if(state.goodsList[i].goodsId == gid){
+          state.goodsList.splice(i,1)
+        }
+      };
+      localStorage.setItem('goodslist',JSON.stringify(state.goodsList))
+    },
+    //搜索商品
+    searchGoods(state,val){
+      if(val.goodsTitle != '' && val.goodsNum=='' && val.goodsType==''){
+        let newdata = state.goodsList.filter((item:any)=>{
+            if(item.goodsTitle.indexOf(val.goodsTitle)>=0){
+                return item
+            }
+        })
+        state.goodsList = newdata
+      }else if(val.goodsTitle == '' && val.goodsNum !='' && val.goodsType==''){
+        let newdata = state.goodsList.filter((item:any)=>{
+          return item.goodsNum == val.goodsNum
+        })
+        state.goodsList = newdata
+      }else if(val.goodsTitle == '' && val.goodsNum =='' && val.goodsType!=''){
+        let newdata = state.goodsList.filter((item:any)=>{
+          return item.goodsType == val.goodsType
+        })
+        state.goodsList = newdata
+      }
+    },
+    //重置搜索
+    resetSearch(state,data){
+      state.goodsList = data
+    },
+    //商品仓库
+    setGoodsHoList(state,data){
+      state.goodsHoList = data
+      console.log(state.goodsHoList);
+      localStorage.setItem('goodsHoList',JSON.stringify(data))
     },
     setUserlists(state:any, payload) {
       state.aceesuser = payload
@@ -131,6 +184,26 @@ export default createStore({
     //添加商品
     addGoods({commit},data){
       commit('addGoods',data)
+    },
+    //下架商品
+    downGoods({commit},gid){
+      commit('downGoods',gid)
+    },
+    //删除商品
+    deleteGoods({commit},gid){
+      commit('deleteGoods',gid)
+    },
+    //搜索商品
+    searchGoods({commit},val){
+      commit('searchGoods',val)
+    },
+    //重置搜索
+    resetSearch({commit},data){
+      commit('resetSearch',data)
+    },
+    //商品仓库
+    setGoodsHoList({commit},data){
+      commit('setGoodsHoList',data)
     },
     setUserlist(context:any, payload) {
       context.commit('setUserlists', payload)

@@ -52,7 +52,7 @@ export default [
       },
       {
         title: "仓库管理",
-        path: "/Business",
+        path: "/GoodsHouse",
       },
     ],
     path: "",
