@@ -4,7 +4,7 @@
       <div><span>管理后台</span></div>
     </div>
     <div class="rigth-title">
-      <el-button type="primary" link>修改密码</el-button>
+      <el-button type="primary" link @click="changepass">修改密码</el-button>
       <span>{{ username }}</span>
       <div @click="exit" class="exit">
         <span>退出登录</span
@@ -17,9 +17,10 @@
 </template>
 
 <script setup>
+import { ElMessage, ElMessageBox } from "element-plus";
 import { SwitchButton } from "@element-plus/icons-vue";
 import { ref } from "vue";
-import { ElMessage } from "element-plus";
+// import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 const username = ref("");
 const router = useRouter();
@@ -27,7 +28,28 @@ const router = useRouter();
 // 从本地获取username并给username赋值
 username.value = localStorage.getItem("username");
 
-
+const changepass = () => {
+  // 弹出框
+  ElMessageBox.prompt("请输入你修改的密码", "确定新密码", {
+    confirmButtonText: "确定",
+    callback: () => {
+      router.push("/");
+    },
+    cancelButtonText: "取消",
+  })
+    .then(({ value }) => {
+      ElMessage({
+        type: "suceess",
+        message: `修改成功`,
+      });
+    })
+    .catch(() => {
+      ElMessage({
+        type: "修改失败",
+        message: "Input canceled",
+      });
+    });
+};
 
 const exit = () => {
   router.push("/");

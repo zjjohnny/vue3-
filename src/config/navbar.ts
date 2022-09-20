@@ -31,8 +31,8 @@ export default [
     children: [
       {
         title: "会员管理",
-        name:'',
-        path: "",
+        name:'client',
+        path: "/client",
       },
       {
         title: "会员等级",
@@ -48,7 +48,7 @@ export default [
     children: [
       {
         title: "商品管理",
-        path: "/MyClue",
+        path: "/GoodsView",
       },
       {
         title: "仓库管理",
@@ -65,16 +65,12 @@ export default [
     children: [
       {
         title: "订单列表",
-        path: "/main/quotation",
-      },
-      {
-        title: "订单清关",
-        path: "/main/contract",
-      },
+        path: "/dindan",
+      }
 
     ],
     path: "",
-    flag: 3,
+    flag: 4,
   },
   // {
   //   title: "售后管理",
@@ -139,10 +135,10 @@ export default [
     children: [
       {
         title: "订单设置",
-        path: "",
+        path: "/orderSetting",
       }, {
         title: "国籍管理",
-        path: "",
+        path: "/countryManage",
       }],
     path: "",
     flag: 5,

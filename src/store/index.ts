@@ -1,8 +1,11 @@
-import { createStore } from 'vuex'
+import { createStore } from 'vuex';
 import { useStore } from "vuex";
 const store = useStore();
 export default createStore({
   state: {
+    //会员列表
+    memberUserList:JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    goodsList:[{goodsId:''}],//所有商品数据列表{goodsId:''}
     userlist: [
       {
         id: 0,
@@ -35,6 +38,10 @@ export default createStore({
     aceesuser: []
   },
   getters: {
+    //拿到所有商品信息
+    allGoodsList(state){
+      return state.goodsList;
+    },
     getUserlist(state) {
       return state.userlist
     },
@@ -44,7 +51,33 @@ export default createStore({
 
   },
   mutations: {
-    setUserlists(state, payload) {
+    /* 存储用户列表 */
+    savaMemberUserList(state: any, value) {
+      state.memberUserList = value;
+      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    },
+    //获取全部商品数据
+    setGoodsList(state:any,data){
+      state.goodsList = data;
+      let localData = localStorage.getItem('goodslist')
+      if(localData == null){
+        localStorage.setItem('goodslist',JSON.stringify(data))
+      }
+    },
+    //修改商品信息
+    changeGoods(state:any,data){
+      for(let i=0;i<state.goodsList.length;i++){
+        if(state.goodsList[i].goodsId == data.goodsId){
+          state.goodsList.splice(i,1,data)
+        }
+      };
+      localStorage.setItem('goodslist',JSON.stringify(state.goodsList))
+    },
+    //增加商品
+    addGoods(state:any,data){
+      console.log(data);
+    },
+    setUserlists(state:any, payload) {
       state.aceesuser = payload
       sessionStorage.setItem('setUserlists', JSON.stringify(payload))
     },
@@ -82,20 +115,48 @@ export default createStore({
     }
   },
   actions: {
-    setUserlist(context, payload) {
+    //拿到所有商品信息
+    setGoodsList({commit},data){
+      commit('setGoodsList',data);
+    },
+    //修改商品信息
+    changeGoods({commit},data){
+      commit('changeGoods',data)
+    },
+    //添加商品
+    addGoods({commit},data){
+      commit('addGoods',data)
+    },
+    setUserlist(context:any, payload) {
       context.commit('setUserlists', payload)
     },
-    deleteUser(context, payload) {
+    deleteUser(context:any, payload) {
       context.commit('deleteUser', payload)
     },
     // 增加权限
-    steacess(context, payload) {
+    steacess(context:any, payload) {
       context.commit('addAcess', payload)
     },
     // 新增
-    addUser(context, payload) {
+    addUser(context:any, payload) {
       context.commit('addUser', payload)
+    },
+    /* 存储会员用户列表 */
+    savaMemberUserList(context:any, value) {
+      context.commit('savaMemberUserList', value);
+    },
+    /* 添加会员用户 */
+    addMemberUser(context:any, value) {
+      context.commit('addMemberUser', value);
+    },
+    /* 修改会员信息 */
+    updateMemberUser(context:any, value) { 
+      context.commit('updateMemberUser', value);
+    },
+    /* 修改会员状态：启用||禁用 */
+    updateMemberUserStatus(context:any, value) { 
+      context.commit('updateMemberUserStatus', value);
     }
-
-  }
+  },
+  modules: {}
 })

@@ -42,14 +42,13 @@
 </template>
 
 <script lang="ts" setup>
-
 import { reactive, ref, onBeforeMount } from "vue";
 import type { FormInstance } from "element-plus";
 import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-
+// const DB = require("@/db/app.ts")
 const router = useRouter(); //获取路由对象
 const route = useRoute();
 const store = useStore();
@@ -87,32 +86,26 @@ const rules = reactive({
 const submitForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.validate((valid) => {
-
     if (valid) {
       // 拿到vuex存取的userlist
       const userlist = store.state.userlist;
       // 判断账号密码是否正确并存当前登录信息在本地
       userlist.forEach((item: any) => {
-
         if (
           item.username == ruleForm.checkPass &&
           item.password == ruleForm.pass
         ) {
-        localStorage.setItem("username", ruleForm.checkPass);
+          localStorage.setItem("username", ruleForm.checkPass);
 
           localStorage.setItem("user", JSON.stringify(item));
           router.push("/home");
         }
-     })
-    
-     
-
-    }else{
+      });
+    } else {
       ElMessage.error("账号或密码错误");
     }
-
-  })
- }
+  });
+};
 const resetForm = (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   formEl.resetFields();
@@ -120,8 +113,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
 
 onBeforeMount(() => {
   console.log("%c ======>>>>>>>>", "color:orange;", store.state.userlist);
+  // 获取mysql中表userlist
   // localStorage.setItem("userlistacess", store.state.userlist);
-})
+});
+
 
 </script>
 

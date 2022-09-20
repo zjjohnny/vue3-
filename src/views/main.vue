@@ -72,7 +72,9 @@ export default defineComponent({
   top: 74px;
   left: 230px;
   overflow-y: auto;
-  width: calc(100vw - 250px);
+  // width: calc(100vw - 250px);
+  width: calc(100vw - 273px);
+
   height: calc(100vh - 94px);
   padding-top: 20px;
   padding-left: 20px;
