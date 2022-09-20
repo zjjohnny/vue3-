@@ -35,7 +35,23 @@ const routes: Array<RouteRecordRaw> = [
         path:'/AddGoods',
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
-      }
+      },{
+        path: '/orderSetting',
+        name: 'orderSetting',
+        component: ()=>import('../views/system/orderSetting.vue')
+      },{
+        path: '/countryManage',
+        name: 'countryManage',
+        component: ()=>import('../views/system/countryManage.vue')
+      },{
+        path: '/change',
+        name: 'change',
+        component: ()=>import('../views/system/change.vue')
+      },{
+        path: '/increase',
+        name: 'increase',
+        component: ()=>import('../views/system/increase.vue')
+      },
     ],
     redirect: '/home'
   },
@@ -52,16 +68,7 @@ const routes: Array<RouteRecordRaw> = [
   //   // which is lazy-loaded when the route is visited.
   //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   // }
-  {
-    path: '/orderSetting',
-    name: 'orderSetting',
-    component: ()=>import('../views/system/orderSetting.vue')
-  },
-  {
-    path: '/countryManage',
-    name: 'countryManage',
-    component: ()=>import('../views/system/countryManage.vue')
-  },
+  
 
 ]
 

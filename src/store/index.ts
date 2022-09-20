@@ -33,7 +33,11 @@ export default createStore({
       }
     ],
     // 增加的权限用户
-    aceesuser: []
+    aceesuser: [],
+    //order订单设置
+    orderList:[],
+    countryList:[],
+    
   },
   getters: {
     //拿到所有商品信息
@@ -45,8 +49,14 @@ export default createStore({
     },
     getuseracc(state) {
       return state.aceesuser
-    }
-
+    },
+    //订单设置
+    allOrder(state){
+      return state.orderList
+    },
+    allCountry(state){
+      return state.countryList
+    },
   },
   mutations: {
     //获取全部商品数据
@@ -101,7 +111,16 @@ export default createStore({
       // 存本地
       localStorage.setItem('userlist', JSON.stringify(state.userlist))
 
-    }
+    },
+    //order
+    setOrderList(state,data){
+      state.orderList=data
+      // console.log(state.orderList);
+    },
+    setCountryList(state,data){
+      state.countryList=data
+    },
+    
   },
   actions: {
     //拿到所有商品信息
@@ -130,7 +149,14 @@ export default createStore({
     // 新增
     addUser(context, payload) {
       context.commit('addUser', payload)
-    }
-
+    },
+    //order新增
+    setOrderList({commit},data){
+      // console.log(data);
+      commit("setOrderList",data)
+    },
+    setCountryList({commit},data){
+      commit("setCountryList",data)
+    },
   }
 })
