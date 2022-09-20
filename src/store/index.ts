@@ -40,7 +40,11 @@ export default createStore({
       }
     ],
     // 增加的权限用户
-    aceesuser: []
+    aceesuser: [],
+    //order订单设置
+    orderList:[],
+    countryList:[],
+    
   },
   getters: {
     //拿到所有商品信息
@@ -55,8 +59,14 @@ export default createStore({
     },
     getuseracc(state) {
       return state.aceesuser
-    }
-
+    },
+    //订单设置
+    allOrder(state){
+      return state.orderList
+    },
+    allCountry(state){
+      return state.countryList
+    },
   },
   mutations: {
     /* 存储用户列表 */
@@ -150,6 +160,36 @@ export default createStore({
       }
       localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
     },
+
+    // 新增用户
+    addUser(state, payload) {
+      state.userlist.push({
+        id: state.userlist.length,
+        username: payload.username,
+        name: payload.name,
+        password: payload.password,
+        acess: [], //权限
+        date: new Date().getFullYear() +
+          "年" +
+          new Date().getMonth() +
+          "月" +
+          new Date().getDate() +
+          "日",         
+      }),
+      // 存本地
+      localStorage.setItem('userlist', JSON.stringify(state.userlist))
+
+    },
+    //order
+    setOrderList(state,data){
+      state.orderList=data
+      // console.log(state.orderList);
+    },
+    setCountryList(state,data){
+      state.countryList=data
+    },
+    
+
     /* 修改会员状态：启用||禁用 */
     updateMemberUserStatus(state:any, value) { 
       for (let i = 0; i < state.memberUserList.length; i++) {
@@ -171,6 +211,7 @@ export default createStore({
         }
       }
     }
+
   },
   actions: {
     //拿到所有商品信息
@@ -219,6 +260,17 @@ export default createStore({
     addUser(context:any, payload) {
       context.commit('addUser', payload)
     },
+
+    //order新增
+    setOrderList({commit},data){
+      // console.log(data);
+      commit("setOrderList",data)
+    },
+    setCountryList({commit},data){
+      commit("setCountryList",data)
+    },
+  
+
     /* 存储会员用户列表 */
     savaMemberUserList(context:any, value) {
       context.commit('savaMemberUserList', value);
@@ -245,4 +297,5 @@ export default createStore({
     }
   },
   modules: {}
+
 })
