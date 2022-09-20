@@ -31,8 +31,8 @@ export default [
     children: [
       {
         title: "会员管理",
-        name:'',
-        path: "",
+        name:'client',
+        path: "/client",
       },
       {
         title: "会员等级",
@@ -52,7 +52,7 @@ export default [
       },
       {
         title: "仓库管理",
-        path: "/Business",
+        path: "/GoodsHouse",
       },
     ],
     path: "",
@@ -65,16 +65,12 @@ export default [
     children: [
       {
         title: "订单列表",
-        path: "/main/quotation",
-      },
-      {
-        title: "订单清关",
-        path: "/main/contract",
-      },
+        path: "/dindan",
+      }
 
     ],
     path: "",
-    flag: 3,
+    flag: 4,
   },
   // {
   //   title: "售后管理",
@@ -94,11 +90,11 @@ export default [
     children: [
       {
         title: "满减",
-        path: "/test",
+        path: "/ManJian",
       },
       {
         title: "优惠券",
-        path: "",
+        path: "/YouHuiJuan",
       },
 
     ],
