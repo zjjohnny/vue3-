@@ -74,18 +74,12 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/goods/GoodsHouse.vue')
       },{
         path:'/dindan',
-        name: '订单',
+        name: 'dindan',
         component: () => import('../views/sxw/DinDan.vue')
-      },
-      {
-        path:'/ManJian',
-        name: 'ManJian',
-        component: () => import('../views/sand/ManJian.vue')
-      },
-      {
-        path:'/YouHuiJuan',
-        name: 'YouHuiJuan',
-        component: () => import('../views/sand/YouHuiJuan.vue')
+      },{
+        path:'/Dda',
+        name: 'Dda',
+        component: () => import('../views/sxw/Dda.vue')
       }
     ],
     redirect: '/home'

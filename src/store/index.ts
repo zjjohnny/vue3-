@@ -40,11 +40,7 @@ export default createStore({
       }
     ],
     // 增加的权限用户
-    aceesuser: [],
-    //order订单设置
-    orderList:[],
-    countryList:[],
-    
+    aceesuser: []
   },
   getters: {
     //拿到所有商品信息
@@ -59,14 +55,14 @@ export default createStore({
     },
     getuseracc(state) {
       return state.aceesuser
-    },
+    }
     //订单设置
-    allOrder(state){
-      return state.orderList
-    },
-    allCountry(state){
-      return state.countryList
-    },
+    // allOrder(state){
+    //   return state.orderList
+    // },
+    // allCountry(state){
+    //   return state.countryList
+    // },
   },
   mutations: {
     /* 存储用户列表 */
@@ -89,61 +85,11 @@ export default createStore({
       localStorage.setItem('goodslist',JSON.stringify(state.goodsList))
     },
     //增加商品
-    addGoods(state:any,data){
-      data.goodsId = state.goodsList.length+1;
-      state.goodsList.push(data);
-      localStorage.setItem('goodslist', JSON.stringify(state.goodsList));
+    addGoods(state,data){
+      console.log(data);
+      
     },
-    //下架商品
-    downGoods(state,gid){
-      for(let i=0;i<state.goodsList.length;i++){
-        if(state.goodsList[i].goodsId == gid){
-          state.goodsList[i].goodsShelves = '否'
-        }
-      }
-      localStorage.setItem('goodslist', JSON.stringify(state.goodsList));
-    },
-    //删除商品
-    deleteGoods(state,gid){
-      for(let i=0;i<state.goodsList.length;i++){
-        if(state.goodsList[i].goodsId == gid){
-          state.goodsList.splice(i,1)
-        }
-      };
-      localStorage.setItem('goodslist',JSON.stringify(state.goodsList))
-    },
-    //搜索商品
-    searchGoods(state,val){
-      if(val.goodsTitle != '' && val.goodsNum=='' && val.goodsType==''){
-        let newdata = state.goodsList.filter((item:any)=>{
-            if(item.goodsTitle.indexOf(val.goodsTitle)>=0){
-                return item
-            }
-        })
-        state.goodsList = newdata
-      }else if(val.goodsTitle == '' && val.goodsNum !='' && val.goodsType==''){
-        let newdata = state.goodsList.filter((item:any)=>{
-          return item.goodsNum == val.goodsNum
-        })
-        state.goodsList = newdata
-      }else if(val.goodsTitle == '' && val.goodsNum =='' && val.goodsType!=''){
-        let newdata = state.goodsList.filter((item:any)=>{
-          return item.goodsType == val.goodsType
-        })
-        state.goodsList = newdata
-      }
-    },
-    //重置搜索
-    resetSearch(state,data){
-      state.goodsList = data
-    },
-    //商品仓库
-    setGoodsHoList(state,data){
-      state.goodsHoList = data
-      console.log(state.goodsHoList);
-      localStorage.setItem('goodsHoList',JSON.stringify(data))
-    },
-    setUserlists(state:any, payload) {
+    setUserlists(state, payload) {
       state.aceesuser = payload
     },
     /* 添加用户 */
@@ -181,13 +127,13 @@ export default createStore({
 
     },
     //order
-    setOrderList(state,data){
-      state.orderList=data
-      // console.log(state.orderList);
-    },
-    setCountryList(state,data){
-      state.countryList=data
-    },
+    // setOrderList(state,data){
+    //   state.orderList=data
+    //   // console.log(state.orderList);
+    // },
+    // setCountryList(state,data){
+    //   state.countryList=data
+    // },
     
 
     /* 修改会员状态：启用||禁用 */
