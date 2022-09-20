@@ -52,19 +52,34 @@ const routes: Array<RouteRecordRaw> = [
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
       },{
+        path: '/orderSetting',
+        name: 'orderSetting',
+        component: ()=>import('../views/system/orderSetting.vue')
+      },{
+        path: '/countryManage',
+        name: 'countryManage',
+        component: ()=>import('../views/system/countryManage.vue')
+      },{
+        path: '/change',
+        name: 'change',
+        component: ()=>import('../views/system/change.vue')
+      },{
+        path: '/increase',
+        name: 'increase',
+        component: ()=>import('../views/system/increase.vue')
+      },
+      {
+        path:'/GoodsHouse',
+        name: '商品仓库',
+        component: () => import('../views/goods/GoodsHouse.vue')
+      },{
         path:'/dindan',
-        name: '订单',
+        name: 'dindan',
         component: () => import('../views/sxw/DinDan.vue')
-      },
-      {
-        path:'/ManJian',
-        name: 'ManJian',
-        component: () => import('../views/sand/ManJian.vue')
-      },
-      {
-        path:'/YouHuiJuan',
-        name: 'YouHuiJuan',
-        component: () => import('../views/sand/YouHuiJuan.vue')
+      },{
+        path:'/Dda',
+        name: 'Dda',
+        component: () => import('../views/sxw/Dda.vue')
       }
     ],
     redirect: '/home'
@@ -72,7 +87,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
-  },{
+  },
+  // {
+  //   path: '/about',
+  //   name: 'about',
+  //   // route level code-splitting
+  //   // this generates a separate chunk (about.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+  // }
+  {
     path: '/orderSetting',
     name: 'orderSetting',
     component: ()=>import('../views/system/orderSetting.vue')
