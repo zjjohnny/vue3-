@@ -10,9 +10,37 @@
           <span class="PutBtc">收货人</span><div class="oneputc"><el-input v-model="input" placeholder="请输入收货人姓名" /></div> 
 
           <span class="PutBtd">联系电话</span><div class="oneputd"><el-input v-model="input" placeholder="请输入手机号码" /></div> 
-          <span class="PutBte">开始时间</span><div class="onepute"><el-input v-model="input" placeholder="Please input" /></div>
-          <span class="PutBtf">订单类型</span><div class="oneputf"><el-input v-model="input" placeholder="订单类型" /></div>  
-          <span class="PutBtg">结束时间</span><div class="oneputg"><el-input v-model="input" placeholder="Please input" /></div>
+          <span class="PutBte">开始时间</span><div class="onepute">
+                       <div class="block">
+     
+                           <el-date-picker
+                               v-model="value1"
+                              type="date"
+                              placeholder="选择日期"
+                              :size="size"
+                               />
+                              </div>
+                   </div>
+          <span class="PutBtf">订单类型</span><div class="oneputf"> <el-select v-model="value" class="m-2" placeholder="Select">
+                          <el-option
+                          v-for="item in options"
+                          :key="item.value"
+                          :label="item.label"
+                          :value="item.value"
+                          />
+                    </el-select></div>  
+          <span class="PutBtg">结束时间</span><div class="oneputg"><div class="block">
+   
+                                          <el-date-picker
+                                           v-model="value2"
+                                           type="date"
+                                           placeholder="选择日期"
+                                           :disabled-date="disabledDate"
+                                           :shortcuts="shortcuts"
+                                           :size="size"
+                                               />
+                                          </div>
+                                         </div>
 
           <div class="sousuoanniu"><el-button type="primary">搜索</el-button></div>
         </div>
@@ -29,11 +57,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
             >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -46,11 +74,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
             >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -63,11 +91,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
             >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -80,11 +108,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
             >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -98,11 +126,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
            >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -116,11 +144,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
             >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -134,11 +162,11 @@
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 100%"
+            style="width: 80%"
             >
             <el-table-column prop="date" label="商品" width="250" />
             <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
+            <el-table-column prop="name" label="买家信息" width="180" />
             <el-table-column prop="name" label="下单时间" width="160" />
             <el-table-column prop="name" label="订单状态" width="160" />
             <el-table-column prop="name" label="贸易类型" width="160" />
@@ -155,6 +183,10 @@
 <script lang="ts" setup>
      import { TabsPaneContext } from 'element-plus';
      import { ref } from 'vue';
+     import { useRoute } from 'vue-router';
+     import {useStore} from 'vuex';
+     import axios from 'axios';
+     name:'dindan'
    
      const input = ref('');
 
@@ -163,39 +195,61 @@
      const handleClick = (tab: TabsPaneContext, event: Event) => {
       console.log(tab, event)
    };
-    const tableData1 = [
+   const size = ref<'' | 'large' | 'small'>('')
 
-       
+const value1 = ref('')
+const value2 = ref('')
 
- 
-
+const shortcuts = [
   {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    text: 'Today',
+    value: new Date(),
   },
   {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    text: 'Yesterday',
+    value: () => {
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24)
+      return date
+    },
   },
   {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    text: 'A week ago',
+    value: () => {
+      const date = new Date()
+      date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+      return date
+    },
+  },
+]
+
+const disabledDate = (time: Date) => {
+  return time.getTime() < Date.now()
+};
+const value = ref('')
+
+const options = [
+  {
+    value: 'Option1',
+    label: 'Option1',
   },
   {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    value: 'Option2',
+    label: 'Option2',
   },
-
-];
-
-    
-    
-
-   
+  {
+    value: 'Option3',
+    label: 'Option3',
+  },
+  {
+    value: 'Option4',
+    label: 'Option4',
+  },
+  {
+    value: 'Option5',
+    label: 'Option5',
+  },
+]
    
     </script>
     <style>
@@ -307,26 +361,6 @@
             margin-top: 120px;
         }
 
-        .Ddbaoti{
-            float: left;
-            position: absolute;
-            margin-left: -40px;
-        }
-        .Ddbaoti li{
-            display: inline-block;
-            width: 140px;
-            height: 44px;
-            border: 1px solid rgba(180, 177, 177, 0.555);
-            text-align: center;
-            line-height : 44px; 
-            font-size: 14px;
-            cursor: pointer;
-        }
-       .Biaogea{
-        position: relative;
-        margin-top: 64px;
-        width: 1200px;
-
-       }
-
+    
+       
     </style>

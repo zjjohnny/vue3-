@@ -66,6 +66,9 @@ export default [
       {
         title: "订单列表",
         path: "/dindan",
+      },{
+        title: "订单清关",
+        path: "/Dda",
       }
 
     ],
