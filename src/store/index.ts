@@ -7,6 +7,8 @@ export default createStore({
   state: {
     //会员列表
     memberUserList:JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    //会员等级列表
+    memberGradeList:[],
     goodsList:JSON.parse(localStorage.getItem('goodslist') || '[]'),//所有商品数据列表{goodsId:''}
     goodsHoList:JSON.parse(localStorage.getItem('goodsHoList') || '[]'),
     userlist: [
