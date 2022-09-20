@@ -59,6 +59,16 @@ const routes: Array<RouteRecordRaw> = [
         path:'/dindan',
         name: '订单',
         component: () => import('../views/sxw/DinDan.vue')
+      },
+      {
+        path:'/ManJian',
+        name: 'ManJian',
+        component: () => import('../views/sand/ManJian.vue')
+      },
+      {
+        path:'/YouHuiJuan',
+        name: 'YouHuiJuan',
+        component: () => import('../views/sand/YouHuiJuan.vue')
       }
     ],
     redirect: '/home'
