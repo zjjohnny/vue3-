@@ -9,6 +9,7 @@ import '@/assets/iconfont/iconfont.css'
 
 // import axios from 'axios'
 
+
 const app = createApp(App)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)

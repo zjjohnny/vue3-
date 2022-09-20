@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
+  
   {
     path: '/main',
     name: 'main',
@@ -16,11 +17,26 @@ const routes: Array<RouteRecordRaw> = [
         name: 'data',
         component: () => import(/* webpackChunkName: "data" */ '../views/pages/data.vue')
       }, {
+        path: "/client",
+        name: 'client',
+        component: () => import('../views/CRain/Client.vue')
+      },{
+        path: "/highseas",
+        name: 'highseas',
+        component: () => import('../views/CRain/HighSeas.vue')
+      },{
+        path: "/adduser",
+        name: 'adduser',
+        component: () => import('../views/CRain/AddUser.vue')
+      },{
+        path: "/updateuser",
+        name: 'updateuser',
+        component: () => import('../views/CRain/updateUser.vue')
+      },{
         path: "/acess",
         name: '权限',
         component: () => import('../views/pages/acess.vue')
-      },
-      {
+      },{
         path:'/GoodsView',
         name: 'GoodsView',
         component: () => import('../views/goods/GoodsView.vue'),
@@ -36,18 +52,34 @@ const routes: Array<RouteRecordRaw> = [
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
       },{
+        path: '/orderSetting',
+        name: 'orderSetting',
+        component: ()=>import('../views/system/orderSetting.vue')
+      },{
+        path: '/countryManage',
+        name: 'countryManage',
+        component: ()=>import('../views/system/countryManage.vue')
+      },{
+        path: '/change',
+        name: 'change',
+        component: ()=>import('../views/system/change.vue')
+      },{
+        path: '/increase',
+        name: 'increase',
+        component: ()=>import('../views/system/increase.vue')
+      },
+      {
+        path:'/GoodsHouse',
+        name: '商品仓库',
+        component: () => import('../views/goods/GoodsHouse.vue')
+      },{
         path:'/dindan',
         name: 'dindan',
         component: () => import('../views/sxw/DinDan.vue')
-      },{
-        path:'/Dda',
-        name: 'Dda',
-        component: () => import('../views/sxw/Dda.vue')
       }
     ],
     redirect: '/home'
-  },
-  {
+  },{
     path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
@@ -64,15 +96,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/orderSetting',
     name: 'orderSetting',
     component: ()=>import('../views/system/orderSetting.vue')
-  },
-  {
+  },{
     path: '/countryManage',
     name: 'countryManage',
     component: ()=>import('../views/system/countryManage.vue')
-  },
-
+  }
 ]
-
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes

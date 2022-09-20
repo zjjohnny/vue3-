@@ -1,9 +1,16 @@
-import { createStore } from 'vuex'
+import { da } from 'element-plus/es/locale';
+import { stat } from 'fs';
+import { createStore } from 'vuex';
 import { useStore } from "vuex";
 const store = useStore();
 export default createStore({
   state: {
-    goodsList:[{goodsId:''}],//所有商品数据列表{goodsId:''}
+    //会员列表
+    memberUserList:JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    //会员等级列表
+    memberGradeList:[],
+    goodsList:JSON.parse(localStorage.getItem('goodslist') || '[]'),//所有商品数据列表{goodsId:''}
+    goodsHoList:JSON.parse(localStorage.getItem('goodsHoList') || '[]'),
     userlist: [
       {
         id: 0,
@@ -33,56 +40,43 @@ export default createStore({
       }
     ],
     // 增加的权限用户
-    aceesuser: [],  
-
-     tableData1:[
-      {
-        date: '2016-05-03',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-02',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-04',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-      {
-        date: '2016-05-01',
-        name: 'Tom',
-        address: 'No. 189, Grove St, Los Angeles',
-      },
-    
-    ]
+    aceesuser: []
   },
   getters: {
     //拿到所有商品信息
     allGoodsList(state){
       return state.goodsList;
     },
+    allGoodsHolist(state){
+      return state.goodsHoList
+    },
     getUserlist(state) {
       return state.userlist
     },
     getuseracc(state) {
       return state.aceesuser
-    }
-
+    },
+    //订单设置
+    allOrder(state){
+      return state.orderList
+    },
+    allCountry(state){
+      return state.countryList
+    },
   },
   mutations: {
+    /* 存储用户列表 */
+    savaMemberUserList(state: any, value) {
+      state.memberUserList = value;
+      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    },
     //获取全部商品数据
     setGoodsList(state,data){
-      state.goodsList = data;
-      let localData = localStorage.getItem('goodslist')
-      if(localData == null){
-        localStorage.setItem('goodslist',JSON.stringify(data))
-      }
+      state.goodsList = data
+      localStorage.setItem('goodslist',JSON.stringify(data))
     },
     //修改商品信息
-    changeGoods(state,data){
+    changeGoods(state:any,data){
       for(let i=0;i<state.goodsList.length;i++){
         if(state.goodsList[i].goodsId == data.goodsId){
           state.goodsList.splice(i,1,data)
@@ -98,15 +92,21 @@ export default createStore({
     setUserlists(state, payload) {
       state.aceesuser = payload
     },
-    // 删除用户
-    deleteUser(state, payload,) {
-      state.userlist.splice(payload, 1)
+    /* 添加用户 */
+    addMemberUser(state:any, value) {
+      state.memberUserList.push(value)
+      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
     },
-    // 增加权限
-    addAcess(state, payload: any) {
-      console.log('%c ======>>>>>>>>', 'color:orange;', payload.acess,)
-      state.userlist[payload.id].acess = payload.acess
+    /* 修改会员信息 */
+    updateMemberUser(state:any, value) { 
+      for (let i = 0; i < state.memberUserList.length; i++) {
+        if (state.memberUserList[i].userId === value.userId) {
+          state.memberUserList.splice(i, 1,value);
+        }
+      }
+      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
     },
+
     // 新增用户
     addUser(state, payload) {
       state.userlist.push({
@@ -125,7 +125,39 @@ export default createStore({
       // 存本地
       localStorage.setItem('userlist', JSON.stringify(state.userlist))
 
+    },
+    //order
+    setOrderList(state,data){
+      state.orderList=data
+      // console.log(state.orderList);
+    },
+    setCountryList(state,data){
+      state.countryList=data
+    },
+    
+
+    /* 修改会员状态：启用||禁用 */
+    updateMemberUserStatus(state:any, value) { 
+      for (let i = 0; i < state.memberUserList.length; i++) {
+        if (state.memberUserList[i].userId === value) {
+          state.memberUserList[i].userStatus = !state.memberUserList[i].userStatus
+        }
+      }
+      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    }, 
+     /* 存储会员等级列表 */
+    saveMemberGradeList(state: any, value) { 
+      state.memberGradeList = value;
+    },
+    /* 修改会员等级列表信息 */
+    updateMemberGradeList(state: any, value) { 
+      for (let i = 0; i < state.memberGradeList.length; i++) {
+        if (state.memberGradeList[i].id === value.id) {
+          state.memberGradeList.splice(i, 1,value);
+        }
+      }
     }
+
   },
   actions: {
     //拿到所有商品信息
@@ -140,21 +172,76 @@ export default createStore({
     addGoods({commit},data){
       commit('addGoods',data)
     },
-
-    setUserlist(context, payload) {
+    //下架商品
+    downGoods({commit},gid){
+      commit('downGoods',gid)
+    },
+    //删除商品
+    deleteGoods({commit},gid){
+      commit('deleteGoods',gid)
+    },
+    //搜索商品
+    searchGoods({commit},val){
+      commit('searchGoods',val)
+    },
+    //重置搜索
+    resetSearch({commit},data){
+      commit('resetSearch',data)
+    },
+    //商品仓库
+    setGoodsHoList({commit},data){
+      commit('setGoodsHoList',data)
+    },
+    setUserlist(context:any, payload) {
       context.commit('setUserlists', payload)
     },
-    deleteUser(context, payload) {
+    deleteUser(context:any, payload) {
       context.commit('deleteUser', payload)
     },
     // 增加权限
-    steacess(context, payload) {
+    steacess(context:any, payload) {
       context.commit('addAcess', payload)
     },
     // 新增
-    addUser(context, payload) {
+    addUser(context:any, payload) {
       context.commit('addUser', payload)
-    }
+    },
 
-  }
+    //order新增
+    setOrderList({commit},data){
+      // console.log(data);
+      commit("setOrderList",data)
+    },
+    setCountryList({commit},data){
+      commit("setCountryList",data)
+    },
+  
+
+    /* 存储会员用户列表 */
+    savaMemberUserList(context:any, value) {
+      context.commit('savaMemberUserList', value);
+    },
+    /* 添加会员用户 */
+    addMemberUser(context:any, value) {
+      context.commit('addMemberUser', value);
+    },
+    /* 修改会员信息 */
+    updateMemberUser(context:any, value) { 
+      context.commit('updateMemberUser', value);
+    },
+    /* 修改会员状态：启用||禁用 */
+    updateMemberUserStatus(context:any, value) { 
+      context.commit('updateMemberUserStatus', value);
+    },
+    /* 存储会员等级列表 */
+    saveMemberGradeList(context: any, value) { 
+      context.commit('saveMemberGradeList', value);
+    },
+    /* 修改会员等级列表信息 */
+    updateMemberGradeList(context:any, value) { 
+      context.commit('updateMemberGradeList', value);
+    }
+  },
+  modules: {}
+
 })
