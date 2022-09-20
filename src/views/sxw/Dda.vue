@@ -44,74 +44,102 @@
                @tab-click="handleClick"
              >
          <!-- 第一个 -->
-      <el-tab-pane label="未清关" name="first"><el-table :data="tableData1" 
+      <el-tab-pane label="未清关" name="first"><el-table :data="tableData2" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width:  83%"
+            style="width:  90%"
             >
             <el-table-column prop="date" label="商品" width="260" />
-            <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
-            <el-table-column prop="name" label="下单时间" width="160" />
-            <el-table-column prop="name" label="订单状态" width="160" />
-            <el-table-column prop="name" label="贸易类型" width="160" />
-            <el-table-column prop="name" label="清关信息" width="160" />
-            <el-table-column prop="name" label="实付金额" width="160" />
+            <el-table-column prop="namea" label="总价/数量" width="160" />
+            <el-table-column prop="nameb" label="买家信息" width="160" />
+            <el-table-column prop="namec" label="下单时间" width="160" />
+            <el-table-column prop="named" label="订单状态" width="160" />
+            <el-table-column prop="namee" label="贸易类型" width="160" />
+            <el-table-column prop="namef" label="清关信息" width="160" />
+            <el-table-column prop="nameg" label="实付金额" width="160" />
+            <el-table-column label="操作">
+      <template #default>
+        <el-button size="small" 
+          >查看详情</el-button
+        >
+      </template>
+    </el-table-column>
             </el-table>
         </el-tab-pane>
  
         <!-- 第二个 -->
-    <el-tab-pane label="清关中" name="second"><el-table :data="tableData1" 
+    <el-tab-pane label="清关中" name="second"><el-table :data="tableData21" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width:  83%"
+            style="width:  90%"
             >
             <el-table-column prop="date" label="商品" width="260" />
-            <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
-            <el-table-column prop="name" label="下单时间" width="160" />
-            <el-table-column prop="name" label="订单状态" width="160" />
-            <el-table-column prop="name" label="贸易类型" width="160" />
-            <el-table-column prop="name" label="清关信息" width="160" />
-            <el-table-column prop="name" label="实付金额" width="160" />
+            <el-table-column prop="namea" label="总价/数量" width="160" />
+            <el-table-column prop="nameb" label="买家信息" width="160" />
+            <el-table-column prop="namec" label="下单时间" width="160" />
+            <el-table-column prop="named" label="订单状态" width="160" />
+            <el-table-column prop="namee" label="贸易类型" width="160" />
+            <el-table-column prop="namef" label="清关信息" width="160" />
+            <el-table-column prop="nameg" label="实付金额" width="160" />
+            <el-table-column label="操作">
+      <template #default>
+        <el-button size="small" 
+          >查看详情</el-button
+        >
+      </template>
+    </el-table-column>
             </el-table> 
         </el-tab-pane>
 
         <!-- 第三个 -->
-    <el-tab-pane label="已清关" name="third"><el-table :data="tableData1" 
+    <el-tab-pane label="已清关" name="third"><el-table :data="tableData22" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width: 83%"
+            style="width: 90%"
             >
             <el-table-column prop="date" label="商品" width="260" />
-            <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
-            <el-table-column prop="name" label="下单时间" width="160" />
-            <el-table-column prop="name" label="订单状态" width="160" />
-            <el-table-column prop="name" label="贸易类型" width="160" />
-            <el-table-column prop="name" label="清关信息" width="160" />
-            <el-table-column prop="name" label="实付金额" width="160" />
+            <el-table-column prop="namea" label="总价/数量" width="160" />
+            <el-table-column prop="nameb" label="买家信息" width="160" />
+            <el-table-column prop="namec" label="下单时间" width="160" />
+            <el-table-column prop="named" label="订单状态" width="160" />
+            <el-table-column prop="namee" label="贸易类型" width="160" />
+            <el-table-column prop="namef" label="清关信息" width="160" />
+            <el-table-column prop="nameg" label="实付金额" width="160" />
+            <el-table-column label="操作">
+      <template #default>
+        <el-button size="small" 
+          >查看详情</el-button
+        >
+      </template>
+    </el-table-column>
             </el-table>
         </el-tab-pane>
             
         <!-- 第四个 -->
-        <el-tab-pane label="清关失败" name="fourth"><el-table :data="tableData1" 
+        <el-tab-pane label="清关失败" name="fourth"><el-table :data="tableData23" 
             :header-cell-style="{background:'#eef1f6'}"
             border
             :row-style="{height:'80px'}"
-            style="width:  83%"
+            style="width:  90%"
             >
             <el-table-column prop="date" label="商品" width="260" />
-            <el-table-column prop="name" label="总价/数量" width="160" />
-            <el-table-column prop="name" label="买家信息" width="160" />
-            <el-table-column prop="name" label="下单时间" width="160" />
-            <el-table-column prop="name" label="订单状态" width="160" />
-            <el-table-column prop="name" label="贸易类型" width="160" />
-            <el-table-column prop="name" label="清关信息" width="160" />
-            <el-table-column prop="name" label="实付金额" width="160" />
+            <el-table-column prop="namea" label="总价/数量" width="160" />
+            <el-table-column prop="nameb" label="买家信息" width="160" />
+            <el-table-column prop="namec" label="下单时间" width="160" />
+            <el-table-column prop="named" label="订单状态" width="160" />
+            <el-table-column prop="namee" label="贸易类型" width="160" />
+            <el-table-column prop="namef" label="清关信息" width="160" />
+            <el-table-column prop="nameg" label="实付金额" width="160" />
+            <el-table-column label="操作">
+      <template #default>
+        <el-button size="small" 
+          >查看详情</el-button
+        >
+      </template>
+    </el-table-column>
             </el-table>
         </el-tab-pane>
    
@@ -167,27 +195,113 @@ const shortcuts = [
 const disabledDate = (time: Date) => {
   return time.getTime() < Date.now()
 };
-const tableData1 = [
+const tableData2 = [
   {
-    date: '2016-05-03',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'未清关',
+    nameg:'1150.00'
   },
   {
-    date: '2016-05-02',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'未清关',
+    nameg:'1200.00'
   },
   {
-    date: '2016-05-04',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'未清关',
+    nameg:'1000.00'
   },
   {
-    date: '2016-05-01',
-    name: 'Tom',
-    address: 'No. 189, Grove St, Los Angeles',
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'未清关',
+    nameg:'1600.00'
   },
+];
+const tableData21 = [
+  {
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'清关中',
+    nameg:'1150.00'
+  },
+  {
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'清关中',
+    nameg:'1200.00'
+  }
+];
+const tableData22 = [
+  {
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'已清关',
+    nameg:'1150.00'
+  },
+  {
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'已清关',
+    nameg:'1200.00'
+  },
+  {
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'已清关',
+    nameg:'1000.00'
+  }
+];
+const tableData23 = [
+  {
+    date: '商品标题    商品规格',
+    namea: '1000.00 (2件)',
+    nameb: '用户名: 小谁加的老谁 收件人: 何佳文 18151603769',
+    namec:'2019-02-11 19:49',
+    named:'待发货',
+    namee:'保税备货',
+    namef:'清关失败',
+    nameg:'1150.00'
+  }
 ]
    
     </script>
