@@ -1,10 +1,13 @@
+import { stat } from 'fs';
 import { createStore } from 'vuex';
 import { useStore } from "vuex";
 const store = useStore();
 export default createStore({
   state: {
     //会员列表
-    memberUserList:JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    memberUserList: JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    //会员等级列表
+    memberGradeList:[],
     goodsList:[{goodsId:''}],//所有商品数据列表{goodsId:''}
     userlist: [
       {
@@ -102,6 +105,18 @@ export default createStore({
         }
       }
       localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    }, 
+     /* 存储会员等级列表 */
+    saveMemberGradeList(state: any, value) { 
+      state.memberGradeList = value;
+    },
+    /* 修改会员等级列表信息 */
+    updateMemberGradeList(state: any, value) { 
+      for (let i = 0; i < state.memberGradeList.length; i++) {
+        if (state.memberGradeList[i].id === value.id) {
+          state.memberGradeList.splice(i, 1,value);
+        }
+      }
     }
   },
   actions: {
@@ -146,6 +161,14 @@ export default createStore({
     /* 修改会员状态：启用||禁用 */
     updateMemberUserStatus(context:any, value) { 
       context.commit('updateMemberUserStatus', value);
+    },
+    /* 存储会员等级列表 */
+    saveMemberGradeList(context: any, value) { 
+      context.commit('saveMemberGradeList', value);
+    },
+    /* 修改会员等级列表信息 */
+    updateMemberGradeList(context:any, value) { 
+      context.commit('updateMemberGradeList', value);
     }
   },
   modules: {}
