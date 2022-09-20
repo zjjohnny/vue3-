@@ -55,14 +55,14 @@ export default createStore({
     },
     getuseracc(state) {
       return state.aceesuser
-    },
+    }
     //订单设置
-    allOrder(state){
-      return state.orderList
-    },
-    allCountry(state){
-      return state.countryList
-    },
+    // allOrder(state){
+    //   return state.orderList
+    // },
+    // allCountry(state){
+    //   return state.countryList
+    // },
   },
   mutations: {
     /* 存储用户列表 */
@@ -127,13 +127,13 @@ export default createStore({
 
     },
     //order
-    setOrderList(state,data){
-      state.orderList=data
-      // console.log(state.orderList);
-    },
-    setCountryList(state,data){
-      state.countryList=data
-    },
+    // setOrderList(state,data){
+    //   state.orderList=data
+    //   // console.log(state.orderList);
+    // },
+    // setCountryList(state,data){
+    //   state.countryList=data
+    // },
     
 
     /* 修改会员状态：启用||禁用 */

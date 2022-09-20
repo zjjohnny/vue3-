@@ -76,6 +76,10 @@ const routes: Array<RouteRecordRaw> = [
         path:'/dindan',
         name: 'dindan',
         component: () => import('../views/sxw/DinDan.vue')
+      },{
+        path:'/Dda',
+        name: 'Dda',
+        component: () => import('../views/sxw/Dda.vue')
       }
     ],
     redirect: '/home'
