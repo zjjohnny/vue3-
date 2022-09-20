@@ -90,11 +90,11 @@ export default [
     children: [
       {
         title: "满减",
-        path: "/test",
+        path: "/ManJian",
       },
       {
         title: "优惠券",
-        path: "",
+        path: "/YouHuiJuan",
       },
 
     ],
