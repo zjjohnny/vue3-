@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
-  
+
   {
     path: '/main',
     name: 'main',
@@ -17,19 +17,19 @@ const routes: Array<RouteRecordRaw> = [
         name: 'data',
         component: () => import(/* webpackChunkName: "data" */ '../views/pages/data.vue')
       },
-       {
+      {
         path: "/client",
         name: 'client',
         component: () => import('../views/CRain/Client.vue')
-      },{
+      }, {
         path: "/highseas",
         name: 'highseas',
         component: () => import('../views/CRain/HighSeas.vue')
-      },{
+      }, {
         path: "/adduser",
         name: 'adduser',
         component: () => import('../views/CRain/AddUser.vue')
-      },{
+      }, {
         path: "/updateuser",
         name: 'updateuser',
         component: () => import('../views/CRain/updateUser.vue')
@@ -39,67 +39,65 @@ const routes: Array<RouteRecordRaw> = [
         path: "/acess",
         name: '权限',
         component: () => import('../views/pages/acess.vue')
-      },{
-        path:'/GoodsView',
+      }, {
+        path: '/GoodsView',
         name: 'GoodsView',
         component: () => import('../views/goods/GoodsView.vue'),
-      },{
-        path:'/ChangeGoods',
+      }, {
+        path: '/ChangeGoods',
         name: 'ChangeGoods',
         component: () => import('../views/goods/ChangeGoods.vue')
-      },{
-        path:'/AddGoods',
+      }, {
+        path: '/AddGoods',
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
-      },{
-        path:'/dindan',
+      }, {
+        path: '/dindan',
         name: '订单',
         component: () => import('../views/sxw/DinDan.vue')
       },
       {
         path: '/orderSetting',
         name: 'orderSetting',
-        component: ()=>import('../views/system/orderSetting.vue')
-      },{
+        component: () => import('../views/system/orderSetting.vue')
+      }, {
         path: '/countryManage',
         name: 'countryManage',
-        component: ()=>import('../views/system/countryManage.vue')
+        component: () => import('../views/system/countryManage.vue')
       },
-<<<<<<< HEAD
       {
-        path:'/GoodsHouse',
+        path: '/GoodsHouse',
         name: '商品仓库',
         component: () => import('../views/goods/GoodsHouse.vue')
-      },{
-        path:'/dindan',
+      }, {
+        path: '/dindan',
         name: 'dindan',
         component: () => import('../views/sxw/DinDan.vue')
-      },{
-        path:'/Dda',
+      }, {
+        path: '/Dda',
         name: 'Dda',
         component: () => import('../views/sxw/Dda.vue')
-      },{
-        path:'/ManJian',
+      }, {
+        path: '/ManJian',
         name: 'ManJian',
         component: () => import('../views/sand/ManJian.vue')
       },
       {
-        path:'/YouHuiJuan',
+        path: '/YouHuiJuan',
         name: 'YouHuiJuan',
         component: () => import('../views/sand/YouHuiJuan.vue')
+      }, {
+        path: '/record',
+        name: '资金流水',
+        component: () => import('../views/Finance/Recond.vue')
+      }, {
+        path: "/finane",
+        component: () => import('../views/Finance/Commission.vue'),
+        name: "财务管理"
       }
-=======
-
-     {
-      path:"/finane",
-      name:'财务',
-      component:()=>import('../views/Finance/Recond.vue')
-     }
-   
->>>>>>> c3ed63e95b74e30915a02456df97154b3fcb986c
     ],
     redirect: '/home'
-  },{
+  }, {
     path: '/',
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
