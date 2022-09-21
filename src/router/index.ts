@@ -16,7 +16,8 @@ const routes: Array<RouteRecordRaw> = [
         path: '/data',
         name: 'data',
         component: () => import(/* webpackChunkName: "data" */ '../views/pages/data.vue')
-      }, {
+      },
+       {
         path: "/client",
         name: 'client',
         component: () => import('../views/CRain/Client.vue')
@@ -32,7 +33,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "/updateuser",
         name: 'updateuser',
         component: () => import('../views/CRain/updateUser.vue')
-      },{
+      }
+      ,
+      {
         path: "/acess",
         name: '权限',
         component: () => import('../views/pages/acess.vue')
@@ -40,9 +43,6 @@ const routes: Array<RouteRecordRaw> = [
         path:'/GoodsView',
         name: 'GoodsView',
         component: () => import('../views/goods/GoodsView.vue'),
-        children:[
-          
-        ]
       },{
         path:'/ChangeGoods',
         name: 'ChangeGoods',
@@ -52,6 +52,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'AddGoods',
         component: () => import('../views/goods/AddGoods.vue')
       },{
+        path:'/dindan',
+        name: '订单',
+        component: () => import('../views/sxw/DinDan.vue')
+      },
+      {
         path: '/orderSetting',
         name: 'orderSetting',
         component: ()=>import('../views/system/orderSetting.vue')
@@ -59,15 +64,8 @@ const routes: Array<RouteRecordRaw> = [
         path: '/countryManage',
         name: 'countryManage',
         component: ()=>import('../views/system/countryManage.vue')
-      },{
-        path: '/change',
-        name: 'change',
-        component: ()=>import('../views/system/change.vue')
-      },{
-        path: '/increase',
-        name: 'increase',
-        component: ()=>import('../views/system/increase.vue')
       },
+<<<<<<< HEAD
       {
         path:'/GoodsHouse',
         name: '商品仓库',
@@ -90,6 +88,15 @@ const routes: Array<RouteRecordRaw> = [
         name: 'YouHuiJuan',
         component: () => import('../views/sand/YouHuiJuan.vue')
       }
+=======
+
+     {
+      path:"/finane",
+      name:'财务',
+      component:()=>import('../views/Finance/Recond.vue')
+     }
+   
+>>>>>>> c3ed63e95b74e30915a02456df97154b3fcb986c
     ],
     redirect: '/home'
   },{
@@ -97,23 +104,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'login',
     component: () => import(/* webpackChunkName: "login" */ '../views/login/login.vue')
   },
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  // }
-  {
-    path: '/orderSetting',
-    name: 'orderSetting',
-    component: ()=>import('../views/system/orderSetting.vue')
-  },{
-    path: '/countryManage',
-    name: 'countryManage',
-    component: ()=>import('../views/system/countryManage.vue')
-  }
 ]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),

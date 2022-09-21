@@ -1,15 +1,16 @@
 <template>
   <div class="contenbox">
-    <Headers></Headers>
+    <Headers ></Headers>
     <Navbars class="nav"></Navbars>
     <div class="isContent">
       <router-view v-slot="{ Component }">
         <transition name="move" mode="out-in">
-          <!-- <keep-alive> -->
+          <keep-alive>
             <component :is="Component" />
-          <!-- </keep-alive> -->
+          </keep-alive>
         </transition>
       </router-view>
+      <!-- <router-view></router-view> -->
     </div>
   </div>
 </template>
@@ -71,11 +72,12 @@ export default defineComponent({
   top: 74px;
   left: 230px;
   overflow-y: auto;
-  width: calc(100vw - 250px);
+  // width: calc(100vw - 250px);
+  width: calc(100vw - 273px);
+
   height: calc(100vh - 94px);
   padding-top: 20px;
   padding-left: 20px;
-  // padding: 20px;//加上后向春宇的页面会有横向滚动条
   background-color: rgb(243, 248, 255);
 }
 </style>

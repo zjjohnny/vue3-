@@ -1,4 +1,3 @@
-import { da } from 'element-plus/es/locale';
 import { stat } from 'fs';
 import { createStore } from 'vuex';
 import { useStore } from "vuex";
@@ -6,11 +5,10 @@ const store = useStore();
 export default createStore({
   state: {
     //会员列表
-    memberUserList:JSON.parse(localStorage.getItem('memberUserList') || '[]'),
+    memberUserList: JSON.parse(localStorage.getItem('memberUserList') || '[]'),
     //会员等级列表
     memberGradeList:[],
-    goodsList:JSON.parse(localStorage.getItem('goodslist') || '[]'),//所有商品数据列表{goodsId:''}
-    goodsHoList:JSON.parse(localStorage.getItem('goodsHoList') || '[]'),
+    goodsList:[{goodsId:''}],//所有商品数据列表{goodsId:''}
     userlist: [
       {
         id: 0,
@@ -49,9 +47,6 @@ export default createStore({
     allGoodsList(state): any{
       return state.goodsList;
     },
-    allGoodsHolist(state){
-      return state.goodsHoList
-    },
     getUserlist(state) {
       return state.userlist
     },
@@ -76,9 +71,12 @@ export default createStore({
       localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
     },
     //获取全部商品数据
-    setGoodsList(state,data){
-      state.goodsList = data
-      localStorage.setItem('goodslist',JSON.stringify(data))
+    setGoodsList(state:any,data){
+      state.goodsList = data;
+      let localData = localStorage.getItem('goodslist')
+      if(localData == null){
+        localStorage.setItem('goodslist',JSON.stringify(data))
+      }
     },
     //修改商品信息
     changeGoods(state:any,data){
@@ -90,28 +88,26 @@ export default createStore({
       localStorage.setItem('goodslist',JSON.stringify(state.goodsList))
     },
     //增加商品
-    addGoods(state,data){
+    addGoods(state:any,data){
       console.log(data);
-      
     },
-    setUserlists(state, payload) {
+    setUserlists(state:any, payload) {
       state.aceesuser = payload
+      sessionStorage.setItem('setUserlists', JSON.stringify(payload))
     },
-    /* 添加用户 */
-    addMemberUser(state:any, value) {
-      state.memberUserList.push(value)
-      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    // 删除用户
+    deleteUser(state, payload,) {
+      state.userlist.splice(payload, 1)
+      // payload删除对应的id
+      sessionStorage.setItem('deleteUser', JSON.stringify(payload))
     },
-    /* 修改会员信息 */
-    updateMemberUser(state:any, value) { 
-      for (let i = 0; i < state.memberUserList.length; i++) {
-        if (state.memberUserList[i].userId === value.userId) {
-          state.memberUserList.splice(i, 1,value);
-        }
-      }
-      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    // 增加权限
+    addAcess(state, payload: any) {
+      console.log('%c ======>>>>>>>>', 'color:orange;', payload.acess,)
+      state.userlist[payload.id].acess = payload.acess;
+      // 当前设置的权限储存
+      sessionStorage.setItem('addAcess', JSON.stringify(payload))
     },
-
     // 新增用户
     addUser(state, payload) {
       state.userlist.push({
@@ -128,7 +124,7 @@ export default createStore({
           "日",         
       }),
       // 存本地
-      localStorage.setItem('userlist', JSON.stringify(state.userlist))
+      localStorage.setItem('addUser', JSON.stringify(payload))
 
     },
     //order
@@ -166,7 +162,6 @@ export default createStore({
     settableData(state,data){
       state.tableData=data;
     }
-
   },
   actions: {
     //拿到所有商品信息
@@ -180,26 +175,6 @@ export default createStore({
     //添加商品
     addGoods({commit},data){
       commit('addGoods',data)
-    },
-    //下架商品
-    downGoods({commit},gid){
-      commit('downGoods',gid)
-    },
-    //删除商品
-    deleteGoods({commit},gid){
-      commit('deleteGoods',gid)
-    },
-    //搜索商品
-    searchGoods({commit},val){
-      commit('searchGoods',val)
-    },
-    //重置搜索
-    resetSearch({commit},data){
-      commit('resetSearch',data)
-    },
-    //商品仓库
-    setGoodsHoList({commit},data){
-      commit('setGoodsHoList',data)
     },
     setUserlist(context:any, payload) {
       context.commit('setUserlists', payload)
@@ -215,17 +190,6 @@ export default createStore({
     addUser(context:any, payload) {
       context.commit('addUser', payload)
     },
-
-    //order新增
-    setOrderList({commit},data){
-      // console.log(data);
-      commit("setOrderList",data)
-    },
-    setCountryList({commit},data){
-      commit("setCountryList",data)
-    },
-  
-
     /* 存储会员用户列表 */
     savaMemberUserList(context:any, value) {
       context.commit('savaMemberUserList', value);
@@ -257,5 +221,4 @@ export default createStore({
 },
 
   modules: {}
-
 })

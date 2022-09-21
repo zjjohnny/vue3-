@@ -8,18 +8,14 @@
         <el-button type="primary" @click="dialogVisible = true"
           >添加角色</el-button
         >
-        <el-dialog
-          v-model="dialogVisible"
-          title="添加角色"
-          width="30%"
-        >
+        <el-dialog v-model="dialogVisible" title="添加角色" width="30%">
           <span>
             <el-input v-model="name" placeholder="请输入账户名" />
-            <br>
-            <br>
+            <br />
+            <br />
             <el-input v-model="username" placeholder="请输入角色名" />
-            <br>
-            <br>
+            <br />
+            <br />
 
             <el-input
               v-model="password"
@@ -30,9 +26,7 @@
           <template #footer>
             <span class="dialog-footer">
               <el-button @click="dialogVisible = false">取消</el-button>
-              <el-button type="primary" @click="addroles"
-                >确定</el-button
-              >
+              <el-button type="primary" @click="addroles">确定</el-button>
             </span>
           </template>
         </el-dialog>
@@ -72,9 +66,11 @@ import { ElMessage, ElMessageBox } from "element-plus";
 import { computed, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-const username = ref('') //密码
-const name = ref('') //密码
-const password = ref('') //密码
+import axios from "@/node-server/axios";
+
+const username = ref(""); //密码
+const name = ref(""); //密码
+const password = ref(""); //密码
 const dialogVisible = ref(false);
 const store = useStore();
 const router = useRouter(); //获取路由对象
@@ -99,8 +95,10 @@ const handleDelete = (index: number, row: any) => {
   console.log(index, row);
 };
 
+
 // 新增
 const addroles = () => {
+  getmes()
   if (username.value == "" || password.value == "") {
     ElMessage.error("账号或密码不能为空");
     return;
@@ -113,14 +111,24 @@ const addroles = () => {
   dialogVisible.value = false;
   username.value = "";
   password.value = "";
+  name.value = "";
 };
 
 const tableData = computed(() => {
   // 取出本地存储的数据
-  
-  // return localStorage.getItem("userlist")
-  return store.getters.getUserlist;
+  // 取出vuex中的userlist
+  return store.state.userlist;
 });
+
+const getmes=()=>{
+axios({
+  method: 'get',
+  url: '/getUser',
+}).then((res:any) => {
+  console.log(res); //拿到所有用户信息，将用户信息存入vuex
+  // store.dispatch("setUserList", res.data);
+})
+}
 </script>
 
 <style lang="scss" scoped>

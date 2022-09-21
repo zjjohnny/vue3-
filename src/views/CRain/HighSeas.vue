@@ -185,10 +185,10 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .content-container {
   background-color: white;
-  padding: 20px;
+  /* padding: 20px; */
 }
 .header-text {
   text-align: start;
