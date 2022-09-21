@@ -1,6 +1,6 @@
 <template>
   <div class="content-container">
-    <div class="head">用户列表(6共条)</div>
+    <div class="header-text">用户列表(6共条)</div>
     <!-- 弹出框表格数据 -->
     <div class="data-box">
       <el-table :data="memberUserList" border style="width: 100%">
@@ -76,35 +76,43 @@
               <table>
                 <tr>
                   <td>*等级名称</td>
-                  <td><input type="text" readonly /></td>
+                  <td>
+                    <input
+                      type="text"
+                      readonly
+                      v-model="updateData.gradeName"
+                    />
+                  </td>
                 </tr>
                 <tr>
                   <td>*升级规则</td>
-                  <td>一次性购买</td>
+                  <td>{{ updateData.upgradeRules }}</td>
                 </tr>
                 <tr>
                   <td>*金额</td>
-                  <td><input type="text" /></td>
+                  <td><input type="text" v-model="updateData.amount" /></td>
                   <td>元</td>
                 </tr>
                 <tr>
                   <td>*卡位数量</td>
-                  <td><input type="text" /></td>
+                  <td><input type="text" v-model="updateData.cardNumber" /></td>
                 </tr>
                 <tr>
                   <td>*卡位金额</td>
-                  <td><input type="text" /></td>
+                  <td><input type="text" v-model="updateData.cardMoney" /></td>
                   <td>元</td>
                 </tr>
                 <tr>
                   <td>*返佣比例</td>
-                  <td><input type="text" /></td>
+                  <td>
+                    <input type="text" v-model="updateData.backProportion" />
+                  </td>
                 </tr>
               </table>
               <template #footer>
                 <span class="dialog-footer">
                   <el-button @click="dialogVisible = false">取消</el-button>
-                  <el-button type="primary" @click="dialogVisible = false"
+                  <el-button type="primary" @click="submitUpdate"
                     >确定</el-button
                   >
                 </span>
@@ -119,8 +127,9 @@
 
 <script>
 // import axios from "axios";
-import { defineComponent, onBeforeMount, reactive, ref } from "vue";
+import { computed, defineComponent, onBeforeMount, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 import axios from "../../plugins/axiosInstance";
 
 export default defineComponent({
@@ -128,30 +137,49 @@ export default defineComponent({
   setup() {
     //获取路由对象
     const router = useRouter();
-    //会员等级列表
-    const memberUserList = reactive([]);
+    //获取store对象
+    const store = useStore();
     //编辑对话框
     const dialogVisible = ref(false);
+    //编辑对话框数据
+    let updateData = reactive({});
     //方法
     /* 编辑按钮 */
     const updateMemberList = function (row) {
-      console.log(row.id);
+      updateData.id = row.id;
+      updateData.gradeName = row.gradeName;
+      updateData.amount = row.amount;
+      updateData.backProportion = row.backProportion;
+      updateData.cardMoney = row.cardMoney;
+      updateData.cardNumber = row.cardNumber;
+      updateData.upgradeRules = row.upgradeRules;
+      updateData.userSum = row.userSum;
+      console.log(updateData);
       dialogVisible.value = true;
+    };
+    //弹出框确定按钮
+    const submitUpdate = function () {
+      store.dispatch("updateMemberGradeList", updateData);
+      dialogVisible.value = false;
     };
     /* 获取会员等级列表 */
     const getMemberList = function () {
       axios.get("/MemberGrade.do").then((res) => {
-        memberUserList.push(...res.data.memberGradeList);
-        console.log(memberUserList);
+        store.dispatch("saveMemberGradeList", res.data.memberGradeList);
+        console.log(res.data.memberGradeList);
       });
     };
+    /*  store获取会员等级列表 */
+    const memberUserList = computed(() => store.state.memberGradeList);
     onBeforeMount(() => {
       getMemberList();
     });
     return {
       memberUserList,
       dialogVisible,
+      updateData,
       updateMemberList,
+      submitUpdate,
     };
   },
 });
@@ -163,11 +191,14 @@ export default defineComponent({
   /* padding: 20px; */
 }
 .header-text {
+  text-align: start;
   padding-bottom: 10px;
   color: #333333;
   border-bottom: 1px solid #efefef;
+  padding-bottom: 20px;
 }
 .data-box {
+  margin-top: 20px;
   font-size: 12px;
   color: #666666;
 }
@@ -175,10 +206,10 @@ export default defineComponent({
   height: 40px;
 }
 .data-box input {
-    margin-left: 10px;
-    border: 1px solid #efefef;
-    border-radius: 3px;
-    height: 20px;
-    padding:5px
+  margin-left: 10px;
+  border: 1px solid #efefef;
+  border-radius: 3px;
+  height: 20px;
+  padding: 5px;
 }
 </style>
