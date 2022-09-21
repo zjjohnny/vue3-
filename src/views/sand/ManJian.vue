@@ -14,7 +14,7 @@
             />
           </el-select>
         </div>
-        <!-- <div class="sjbox">
+        <div class="sjbox">
             <span class="demonstration">开始时间</span>
             <div class="demo-date-picker">
                 <div class="block">
@@ -30,7 +30,7 @@
                     />
                 </div>
             </div>
-        </div> -->
+        </div>
           <div class="sousuo"><el-button type="primary" @click="searchUser">搜索</el-button></div> 
         </div>
         <div class="tjsj"><span class="suju">共10条数据</span></div>
@@ -43,7 +43,7 @@
             <el-table-column prop="endTime" label="结束时间" width="220" />
             <el-table-column fixed="right" label="操作" width="180">
               <template #default="scope">
-                <el-button link type="primary" size="small" @click="handleClick"
+                <el-button link type="primary" size="small" @click="handleClick(scope.row)"
                   >查看</el-button
                 >
                 <el-button link type="primary" size="small" @click="handleDelete(scope.row)">删除</el-button>
@@ -52,25 +52,16 @@
         </el-table>
     </div>
 </template>
-<script>
-    import {onBeforeMount, reactive, computed, ref} from 'vue';
+<script lang="ts">
+    import {defineComponent,onBeforeMount, reactive, computed, ref} from 'vue';
     import {useStore} from 'vuex';
     import {useRouter} from 'vue-router'
     import { ElMessage} from "element-plus";
     import axios from "../../plugins/axiosInstance";
-    // //时间选择
-    // const size = ref<'' | 'large' | 'small'>('');
-    // // 时间选择
-    // const shortcuts = [{
-    //   text: 'Last week',
-    //   value: () => {
-    //     const end = new Date()
-    //     const start = new Date()
-    //     start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-    //     return [start, end]
-    //   },
-    // }];
-    export default {
+    
+    export default defineComponent({
+      
+    
       name:"ManJian",
         setup() {
           const store = useStore();//调用useStore获取store
@@ -89,7 +80,7 @@
           const ss= reactive({
             name:"",
             state:"",
-            // mytime:"",
+            mytime:"",
           });
           //表格数据
           const userTableData = reactive([]);
@@ -97,18 +88,30 @@
           const searchUser = function () {
              console.log(ss);
           };
- 
+          //时间选择
+          const size = ref<'' | 'large' | 'small'>('');
+          // 时间选择
+          const shortcuts = [{
+            text: 'Last week',
+            value: () => {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              return [start, end]
+            },
+          }];
+
           onBeforeMount(function () {
             axios({
               method: "get",
               url: "getuser.do",
-            }).then((res) => {
+            }).then((res: { data: any; }) => {
               console.log(res);
               store.dispatch("settableData",res.data);
             })
           })
           //查看函数  
-          const handleClick = () => {
+          const handleClick = (row: { id: any; }) => {
           console.log('click')
           };
 
@@ -117,7 +120,7 @@
              return store.state.tableData
           });
                   //删除
-          const handleDelete=(row)=>{
+          const handleDelete=(row: { id: any; })=>{
             if (confirm("确定删除吗")) {
               store.dispatch("deleteUser", row.id);
           }
@@ -129,10 +132,12 @@
             ss,tableData,
             handleClick,
             userTableData,
-            handleDelete
+            handleDelete,
+            size,
+            shortcuts
           }
         }
-      };
+      });
 
     </script>
     <style scoped>

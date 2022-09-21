@@ -4,7 +4,7 @@
         <el-divider />
         <div class="PutOne">
           <span class="PutBta">活动名称</span><div class="oneputa"><el-input v-model="myname" placeholder="请输入活动名称" /></div>
-        <!-- <div class="sjbox">
+        <div class="sjbox">
             <span class="demonstration">开始时间</span>
             <div class="demo-date-picker">
                 <div class="block">
@@ -20,7 +20,7 @@
                     />
                 </div>
             </div>
-        </div> -->
+        </div>
           <div class="sousuo"><el-button type="primary" @click="searchUser">搜索</el-button></div> 
         </div>
         <div class="tjsj"><span class="suju">共10条数据</span></div>
@@ -56,6 +56,7 @@
           const store = useStore();//调用useStore获取store
           const router = useRouter();//获取路由对象
           const myname=ref('');  
+          const value1=ref('');
           onBeforeMount(function () {
             axios({
               method: "get",
@@ -65,6 +66,18 @@
               store.dispatch("settableData",res.data);
             })
           })
+           //时间选择
+           const size = ref<'' | 'large' | 'small'>('');
+          // 时间选择
+          const shortcuts = [{
+            text: 'Last week',
+            value: () => {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              return [start, end]
+            },
+          }];
           //搜索
           const searchUser= () => {
             console.log(myname.value);
@@ -82,7 +95,10 @@
             tableData,
             handleClick,
             myname, 
-            searchUser
+            searchUser,
+            size,
+            shortcuts,
+            value1
           }
         }
       };
