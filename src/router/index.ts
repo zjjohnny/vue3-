@@ -65,6 +65,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'countryManage',
         component: ()=>import('../views/system/countryManage.vue')
       },
+
+     {
+      path:"/finane",
+      name:'财务',
+      component:()=>import('../views/Finance/Recond.vue')
+     }
    
     ],
     redirect: '/home'

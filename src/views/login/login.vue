@@ -48,6 +48,8 @@ import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
+import axios from "@/node-server/axios";
+
 // const DB = require("@/db/app.ts")
 const router = useRouter(); //获取路由对象
 const route = useRoute();
@@ -98,12 +100,26 @@ const submitForm = (formEl: FormInstance | undefined) => {
           localStorage.setItem("username", ruleForm.checkPass);
 
           localStorage.setItem("user", JSON.stringify(item));
+          ElMessage.success("登录成功");
           router.push("/home");
-        }
+        } 
       });
-    } else {
-      ElMessage.error("账号或密码错误");
-    }
+
+      // axios.post("/login", {
+      //   username: ruleForm.checkPass,
+      //   password: ruleForm.pass,
+      // }).then((res) => {
+      //   console.log(res);
+      //   if (res.status == 200) {
+      //     ElMessage.success("登录成功");
+      //     router.push("/home");
+      //   } else {
+      //     ElMessage.error(res.data.msg);
+      //   }
+      // });
+    }else {
+          ElMessage.error("账号或密码错误");
+        }
   });
 };
 const resetForm = (formEl: FormInstance | undefined) => {
@@ -116,8 +132,6 @@ onBeforeMount(() => {
   // 获取mysql中表userlist
   // localStorage.setItem("userlistacess", store.state.userlist);
 });
-
-
 </script>
 
 <style lang="scss" scoped>

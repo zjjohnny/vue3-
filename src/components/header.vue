@@ -20,6 +20,8 @@
 import { ElMessage, ElMessageBox } from "element-plus";
 import { SwitchButton } from "@element-plus/icons-vue";
 import { ref } from "vue";
+import axios from "@/node-server/axios";
+
 // import { ElMessage } from "element-plus";
 import { useRouter } from "vue-router";
 const username = ref("");
@@ -33,6 +35,18 @@ const changepass = () => {
   ElMessageBox.prompt("请输入你修改的密码", "确定新密码", {
     confirmButtonText: "确定",
     callback: () => {
+      // 调用修改密码接口
+      axios
+        .post("/updatePassword", {
+          username: username.value,
+        })
+        .then((res) => {
+          if (res.data.code == 200) {
+            ElMessage.success("修改成功");
+          } else {
+            ElMessage.error("修改失败");
+          }
+        });
       router.push("/");
     },
     cancelButtonText: "取消",
