@@ -1,3 +1,4 @@
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -14,3 +15,4 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 }
 createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
 app.config.globalProperties.$axios = axios
+

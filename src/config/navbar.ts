@@ -52,7 +52,7 @@ export default [
       },
       {
         title: "仓库管理",
-        path: "/Business",
+        path: "/GoodsHouse",
       },
     ],
     path: "",
@@ -66,6 +66,9 @@ export default [
       {
         title: "订单列表",
         path: "/dindan",
+      },{
+        title: "订单清关",
+        path: "/Dda",
       }
 
     ],
@@ -90,11 +93,11 @@ export default [
     children: [
       {
         title: "满减",
-        path: "/test",
+        path: "/ManJian",
       },
       {
         title: "优惠券",
-        path: "",
+        path: "/YouHuiJuan",
       },
 
     ],
@@ -107,7 +110,7 @@ export default [
     children: [
       {
         title: "资金流水",
-        path: "/plan",
+        path: "/record",
       },
       {
         title: "佣金体现",
