@@ -110,11 +110,11 @@ export default [
     children: [
       {
         title: "资金流水",
-        path: "/plan",
+        path: "/record",
       },
       {
         title: "佣金体现",
-        path: "/record",
+        path: "/Commission",
       },
     ],
     path: "",
