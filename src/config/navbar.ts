@@ -114,7 +114,7 @@ export default [
       },
       {
         title: "佣金体现",
-        path: "/Commission",
+        path: "/finane",
       },
     ],
     path: "",

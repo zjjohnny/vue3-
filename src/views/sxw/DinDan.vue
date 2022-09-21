@@ -538,7 +538,7 @@ const tableData16 = [
 ]
    
     </script>
-    <style>
+    <style scoped>
 
         template{
            margin: 0;
@@ -647,6 +647,26 @@ const tableData16 = [
             margin-top: 120px;
         }
 
-    
-       
+        .Ddbaoti{
+            float: left;
+            position: absolute;
+            margin-left: -40px;
+        }
+        .Ddbaoti li{
+            display: inline-block;
+            width: 140px;
+            height: 44px;
+            border: 1px solid rgba(180, 177, 177, 0.555);
+            text-align: center;
+            line-height : 44px; 
+            font-size: 14px;
+            cursor: pointer;
+        }
+       .Biaogea{
+        position: relative;
+        margin-top: 64px;
+        /* width: 1200px; */
+
+       }
+
     </style>

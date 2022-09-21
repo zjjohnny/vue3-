@@ -138,13 +138,13 @@ export default defineComponent({
   border-bottom: 1px solid #ebebeb;
 }
 .content-container .header-box {
-  width: 100px;
-  height: 100px;
+  /* width: 100px; */
+  /* height: 100px; */
   color: #333333;
   line-height: 100px;
   border-radius: 50px;
   text-align: center;
-  margin-right: 30px;
+  /* margin-right: 30px; */
   background-color: #f5f5f9;
 }
 .content-container tr {
@@ -153,11 +153,11 @@ export default defineComponent({
 .content-container table input {
   border: 1px solid #e4e4e4;
   border-radius: 3px;
-  margin: 0 50px 0 10px;
+  /* margin: 0 50px 0 10px; */
   padding: 5px;
 }
 .content-container table tr .select-group input {
-  margin: 0 0 0 16px;
+  /* margin: 0 0 0 16px; */
 }
 .btn-box {
   margin-top: 60px;
