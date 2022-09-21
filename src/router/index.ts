@@ -65,6 +65,30 @@ const routes: Array<RouteRecordRaw> = [
         name: 'countryManage',
         component: ()=>import('../views/system/countryManage.vue')
       },
+<<<<<<< HEAD
+      {
+        path:'/GoodsHouse',
+        name: '商品仓库',
+        component: () => import('../views/goods/GoodsHouse.vue')
+      },{
+        path:'/dindan',
+        name: 'dindan',
+        component: () => import('../views/sxw/DinDan.vue')
+      },{
+        path:'/Dda',
+        name: 'Dda',
+        component: () => import('../views/sxw/Dda.vue')
+      },{
+        path:'/ManJian',
+        name: 'ManJian',
+        component: () => import('../views/sand/ManJian.vue')
+      },
+      {
+        path:'/YouHuiJuan',
+        name: 'YouHuiJuan',
+        component: () => import('../views/sand/YouHuiJuan.vue')
+      }
+=======
 
      {
       path:"/finane",
@@ -72,6 +96,7 @@ const routes: Array<RouteRecordRaw> = [
       component:()=>import('../views/Finance/Recond.vue')
      }
    
+>>>>>>> c3ed63e95b74e30915a02456df97154b3fcb986c
     ],
     redirect: '/home'
   },{

@@ -38,11 +38,13 @@ export default createStore({
       }
     ],
     // 增加的权限用户
-    aceesuser: []
-  },
+    aceesuser: [],
+    // 优惠卷信息
+    tableData:JSON.parse(localStorage.getItem('tableData') || '[]'),  },
+
   getters: {
     //拿到所有商品信息
-    allGoodsList(state){
+    allGoodsList(state): any{
       return state.goodsList;
     },
     getUserlist(state) {
@@ -50,8 +52,17 @@ export default createStore({
     },
     getuseracc(state) {
       return state.aceesuser
-    }
-
+    },
+    gettableData(state){
+      return state.tableData
+    },
+    //订单设置
+    // allOrder(state){
+    //   return state.orderList
+    // },
+    // allCountry(state){
+    //   return state.countryList
+    // },
   },
   mutations: {
     /* 存储用户列表 */
@@ -115,6 +126,41 @@ export default createStore({
       // 存本地
       localStorage.setItem('addUser', JSON.stringify(payload))
 
+    },
+    //order
+    // setOrderList(state,data){
+    //   state.orderList=data
+    //   // console.log(state.orderList);
+    // },
+    // setCountryList(state,data){
+    //   state.countryList=data
+    // },
+    
+
+    /* 修改会员状态：启用||禁用 */
+    updateMemberUserStatus(state:any, value) { 
+      for (let i = 0; i < state.memberUserList.length; i++) {
+        if (state.memberUserList[i].userId === value) {
+          state.memberUserList[i].userStatus = !state.memberUserList[i].userStatus
+        }
+      }
+      localStorage.setItem('memberUserList', JSON.stringify(state.memberUserList));
+    }, 
+     /* 存储会员等级列表 */
+    saveMemberGradeList(state: any, value) { 
+      state.memberGradeList = value;
+    },
+    /* 修改会员等级列表信息 */
+    updateMemberGradeList(state: any, value) { 
+      for (let i = 0; i < state.memberGradeList.length; i++) {
+        if (state.memberGradeList[i].id === value.id) {
+          state.memberGradeList.splice(i, 1,value);
+        }
+      }
+    },
+    // 优惠卷信息
+    settableData(state,data){
+      state.tableData=data;
     }
   },
   actions: {
@@ -167,7 +213,12 @@ export default createStore({
     /* 修改会员等级列表信息 */
     updateMemberGradeList(context:any, value) { 
       context.commit('updateMemberGradeList', value);
+    },
+    //拿到所有满减信息
+    settableData({commit},data){
+      commit('settableData',data);
     }
-  },
+},
+
   modules: {}
 })

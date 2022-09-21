@@ -3,9 +3,9 @@
         <div>满减列表<span>(共80条)</span></div>
         <el-divider />
         <div class="PutOne">
-          <span class="PutBta">活动名称</span><div class="oneputa"><el-input v-model="input" placeholder="请输入活动名称" /></div> 
+          <span class="PutBta">活动名称</span><div class="oneputa"><el-input v-model="ss.name" placeholder="请输入活动名称" /></div> 
           <span class="PutBtb">活动状态</span><div class="oneputb">
-          <el-select v-model="value" class="m-2" placeholder="Select">
+          <el-select v-model="ss.state" class="m-2" placeholder="Select">
             <el-option
             v-for="item in options"
             :key="item.value"
@@ -19,7 +19,7 @@
             <div class="demo-date-picker">
                 <div class="block">
                     <el-date-picker
-                    v-model="value1"
+                    v-model="ss.mytime"
                     type="daterange"
                     unlink-panels
                     range-separator="To"
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-          <div class="sousuo"><el-button type="primary">搜索</el-button></div> 
+          <div class="sousuo"><el-button type="primary" @click="searchUser">搜索</el-button></div> 
         </div>
         <div class="tjsj"><span class="suju">共10条数据</span></div>
         <!-- 表格 -->
@@ -42,75 +42,103 @@
             <el-table-column prop="citstartTimey" label="开始时间" width="220" />
             <el-table-column prop="endTime" label="结束时间" width="220" />
             <el-table-column fixed="right" label="操作" width="180">
-              <template #default>
-                <el-button link type="primary" size="small" @click="handleClick"
+              <template #default="scope">
+                <el-button link type="primary" size="small" @click="handleClick(scope.row)"
                   >查看</el-button
                 >
-                <el-button link type="primary" size="small">删除</el-button>
+                <el-button link type="primary" size="small" @click="handleDelete(scope.row)">删除</el-button>
               </template>
             </el-table-column>
         </el-table>
     </div>
 </template>
-<script lang="ts" setup>
-     import { ref } from 'vue';
-     const input = ref('');
-    //时间选择
-     const size = ref<'' | 'large' | 'small'>('')
-     const value1 = ref('')
-     const value = ref('')
+<script lang="ts">
+    import {defineComponent,onBeforeMount, reactive, computed, ref} from 'vue';
+    import {useStore} from 'vuex';
+    import {useRouter} from 'vue-router'
+    import { ElMessage} from "element-plus";
+    import axios from "../../plugins/axiosInstance";
+    
+    export default defineComponent({
+      
+    
+      name:"ManJian",
+        setup() {
+          const store = useStore();//调用useStore获取store
+          const router = useRouter();//获取路由对象
+          //下拉框数据
+          const options = [
+          {
+            value: 'Option1',
+            label: '进行中',
+          },
+          {
+            value: 'Option2',
+            label: '结束',
+          }];
+          //搜索栏输入数据
+          const ss= reactive({
+            name:"",
+            state:"",
+            mytime:"",
+          });
+          //表格数据
+          const userTableData = reactive([]);
+          //搜索用户 
+          const searchUser = function () {
+             console.log(ss);
+          };
+          //时间选择
+          const size = ref<'' | 'large' | 'small'>('');
+          // 时间选择
+          const shortcuts = [{
+            text: 'Last week',
+            value: () => {
+              const end = new Date()
+              const start = new Date()
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
+              return [start, end]
+            },
+          }];
 
-    const options = [
-        {
-          value: 'Option1',
-          label: '进行中',
-        },
-        {
-          value: 'Option2',
-          label: '结束',
-        }]
-        // 时间选择
-    const shortcuts = [
-      {
-        text: 'Last week',
-        value: () => {
-          const end = new Date()
-          const start = new Date()
-          start.setTime(start.getTime() - 3600 * 1000 * 24 * 7)
-          return [start, end]
-        },
-      }
-    ]
-// 表格
-const handleClick = () => {
-  console.log('click')
-}
+          onBeforeMount(function () {
+            axios({
+              method: "get",
+              url: "getuser.do",
+            }).then((res: { data: any; }) => {
+              console.log(res);
+              store.dispatch("settableData",res.data);
+            })
+          })
+          //查看函数  
+          const handleClick = (row: { id: any; }) => {
+          console.log('click')
+          };
 
-    const tableData = [
-  {
-    name: '新用户优惠卷',
-    manjian: '满100减20',
-    state: '进行中',
-    citstartTimey: '2016-05-04',
-    endTime: '2016-05-06',
-    tag: 'Home',
-  },{
-    name: '新用户优惠卷',
-    manjian: '满100减20',
-    state: '进行中',
-    citstartTimey: '2016-05-04',
-    endTime: '2016-05-06',
-    tag: 'Home',
-  },{
-    name: '新用户优惠卷',
-    manjian: '满100减20',
-    state: '进行中',
-    citstartTimey: '2016-05-04',
-    endTime: '2016-05-06',
-    tag: 'Home',
-  },]
-   
-   
+          //从store中获取用户数据
+          const tableData=computed(()=>{
+             return store.state.tableData
+          });
+                  //删除
+          const handleDelete=(row: { id: any; })=>{
+            if (confirm("确定删除吗")) {
+              store.dispatch("deleteUser", row.id);
+          }
+            console.log(row);
+        }
+
+          return {
+            options,searchUser,
+            ss,tableData,
+            handleClick,
+            userTableData,
+            handleDelete,
+            size,
+            shortcuts
+          }
+        }
+      });
+
     </script>
     <style scoped>
 
